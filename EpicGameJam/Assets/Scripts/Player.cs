@@ -92,16 +92,13 @@ public class Player : MonoBehaviour {
 
 	void Move () {
 		if (direction != new Vector3 (0, 0, 0))
-<<<<<<< HEAD
-			//transform.Translate (speed * direction * Time.deltaTime);
-			this.GetComponent<Rigidbody2D>().transform.Translate(speed * direction * Time.deltaTime);
-=======
+
 			transform.Translate (speed * direction * Time.deltaTime);
 
 		float localX = transform.localScale.x * (-1f);
 		if ((facingRight && transform.localScale.x <= 0) || (!facingRight && transform.localScale.x >= 0))
 			transform.localScale = new Vector3 (transform.localScale.x * (-1), transform.localScale.y, transform.localScale.z);
->>>>>>> master
+
 	}
 		
 	void Jump () {
