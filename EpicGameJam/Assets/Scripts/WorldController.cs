@@ -1,9 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class WorldController : MonoBehaviour {
 
 	public bool bulletPiercing = false;
+
+	//prefabs of levels
+	public GameObject[] levelPrefabs;
+
+	//Drag & drop main menu here
+	public GameObject mainMenu;
+
+	//Drag & drop main menu here
+	public GameObject retryMenu;
+
 
 	// Use this for initialization
 	void Start () {
@@ -18,4 +29,15 @@ public class WorldController : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	public void StartGame(){
+		mainMenu.gameObject.SetActive (false);
+		Instantiate (levelPrefabs [0]);
+	}
+
+	public void ShowRetryMenu(bool state){
+		retryMenu.gameObject.SetActive (state);
+	}
+
+
 }

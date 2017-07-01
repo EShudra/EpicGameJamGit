@@ -27,9 +27,11 @@ public class ExitPoint : MonoBehaviour {
 	}
 
 	void EndLevel(){
-		foreach (var item in GameObject.FindObjectsOfType<GameObject>()) {
-			if (item.GetComponent<Camera> () == null) {
-				Destroy (item);
+		if (exitOpened) {
+			foreach (var item in GameObject.FindObjectsOfType<GameObject>()) {
+				if (item.GetComponent<Camera> () == null) {
+					Destroy (item);
+				}
 			}
 		}
 	}
