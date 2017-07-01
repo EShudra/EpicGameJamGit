@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/EShudraScene.unity
+- path: Assets/AnglainScene.unity
   isLoaded: 1
   isActive: 1
