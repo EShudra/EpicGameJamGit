@@ -2,9 +2,15 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player.cs">
     <Files>
       <File FileName="Assets\Scripts\Player.cs" Line="77" Column="3" />
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Test.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Test.cs" Line="13" Column="21" />
+>>>>>>> 411c866c1647695f03154b1146b4bd0deb85a143
 =======
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Test.cs">
     <Files>

@@ -88,8 +88,11 @@ public class Player : MonoBehaviour {
 
 	void OnCollisionEnter2D (Collision2D col) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Debug.Log (col.collider.tag);
 =======
+=======
+>>>>>>> 411c866c1647695f03154b1146b4bd0deb85a143
 		if (col.collider.tag == "Enemy") {
 
 		}
