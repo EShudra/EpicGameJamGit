@@ -9,8 +9,10 @@ public class Bullet : MonoBehaviour {
 	//bullet damage
 	public float damage;
 
-	//true if bullet pass through enemies
-	public bool piercing;
+	//timebirth
+	float birthTime;
+	//lifrtime of bullet
+	public float lifetime = 10;
 
 	//move bullet formard
 	void Move(){
@@ -20,11 +22,28 @@ public class Bullet : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		birthTime = Time.time;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		Move ();
+		//preventing bullet from stucking
+		if (Time.time - birthTime > lifetime) {
+			Destroy (this.gameObject);
+		}
 	}
+
+	void OnCollisionEnter2D  (Collision2D coll){
+		/*foreach(GameObject item in collision.gameObject){
+			Debug.Log("bam!");
+		}*/
+		Debug.Log ("!!!!");
+		Debug.Log (coll.gameObject.tag);
+		if ((coll.gameObject.tag == "Wall")||(coll.gameObject.tag == "Enemy")) {
+			Destroy (this.gameObject);
+		}
+			
+	}
+	
 }
