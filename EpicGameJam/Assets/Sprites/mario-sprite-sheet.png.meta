@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3dce34d08a69ef44aae8efaeffbd0e16
-timeCreated: 1498723128
+timeCreated: 1498911359
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,6 +8,7 @@ TextureImporter:
     21300002: mario-sprite-sheet_1
     21300004: mario-sprite-sheet_2
     21300006: mario-sprite-sheet_3
+    21300008: mario-sprite-sheet_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -100,6 +101,19 @@ TextureImporter:
         serializedVersion: 2
         x: 153
         y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: mario-sprite-sheet_4
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 0
         width: 16
         height: 16
       alignment: 0
