@@ -79,8 +79,8 @@ public class Player : MonoBehaviour {
 		Debug.Log ("Bomb has been planted."); 
 	}
 
-	void OnCollisionEnter2D (Collider2D col) {
-		if (col.tag == "Enemy") {
+	void OnCollisionEnter2D (Collision2D col) {
+		if (col.collider.tag == "Enemy") {
 
 		}
 	}
