@@ -11,13 +11,14 @@ public class Player : MonoBehaviour {
 	public int bombMaxCount;
 	public float bombAccuracy;
 	public int bombsPerThrow;
-	public Vector3 bombThrowVector;
+	public float bombAnlge;
 
 	public float jumpForce = 1000f;
 	public Transform groundCheck;
 	public float gravityScale = 7f;
 	public float invulnerabilityTime = 2f;
 
+	private float collisionTime;
 	private bool invulnerable = false;
 	private bool grounded = true;
 	private bool isJumping = false;
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour {
 	void Start () {
 		rb2D = GetComponent<Rigidbody2D> ();
 		rb2D.gravityScale = gravityScale;
+		invulnerable = false;
 	}
 
 	void Update () {
@@ -39,6 +41,11 @@ public class Player : MonoBehaviour {
 	void FixedUpdate () {
 		Move ();
 		Jump ();
+
+		if ((collisionTime + invulnerabilityTime) >= Time.time)
+			invulnerable = false;
+
+		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"),LayerMask.NameToLayer ("Enemy"),invulnerable);
 	}
 
 	void CheckMove () {
@@ -79,15 +86,20 @@ public class Player : MonoBehaviour {
 		Debug.Log ("Bomb has been planted."); 
 	}
 
-	void OnCollisionEnter2D (Collider2D col) {
-		if (col.tag == "Enemy") {
+	void OnCollisionEnter2D (Collision2D col) {
+		Debug.Log (col.collider.tag);
 
-		}
-	}
+		if (col.collider.tag == "Enemy" && !invulnerable) {
+			Debug.Log ("Collision with an enemy.");
+			collisionTime = Time.time;
+			invulnerable = true;
+			//Триггер для анимации мигания - здесь!
 
-	void Invulnerability () {
-		if (invulnerable) {
-
+			if (col.transform.position.x < transform.position.x) {
+				rb2D.AddForce(new Vector3 ((jumpForce * jumpHeight / 2f), (jumpForce * jumpHeight / 2f), 0f));
+			} else {
+				rb2D.AddForce(new Vector3 (-(jumpForce * jumpHeight / 2f), (jumpForce * jumpHeight / 2f), 0f));
+			}
 		}
 	}
 }
