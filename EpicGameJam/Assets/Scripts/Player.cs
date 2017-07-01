@@ -3,21 +3,30 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
+	//Скорость персонажа
 	public float speed = 10f;
+	//Используется как множитель к силе прыжка. ГД нужно дать доступ только к этой переменной.
 	public float jumpHeight = 1f;
+	//Просто спрайт персонажа
 	public Sprite skin;
+	//Текущее хп/максимальное хп, всё просто
 	public float currentHp;
 	public float maximumHp;
+	//Максимальное количество бомб
 	public int bombMaxCount;
+	//Разброс бомб
 	public float bombAccuracy;
+	//Количество бомб за бросок
 	public int bombsPerThrow;
+	//Угол отклонения бомб
 	public float bombAnlge;
 
-	public float jumpForce = 1000f;
+	[HideInInspector] public float jumpForce = 1000f;
 	public Transform groundCheck;
 	public float gravityScale = 7f;
-	public float invulnerabilityTime = 2f;
+	public float invulnerabilityTime = 6f;
 
+	private bool doubleJumped;
 	private float collisionTime;
 	private bool invulnerable = false;
 	private bool grounded = true;
@@ -39,16 +48,18 @@ public class Player : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
+		grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
+
 		Move ();
 		Jump ();
 
-		if ((collisionTime + invulnerabilityTime) >= Time.time)
+		if (Time.time >= (collisionTime + invulnerabilityTime))
 			invulnerable = false;
 
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"),LayerMask.NameToLayer ("Enemy"),invulnerable);
 	}
 
-	void CheckMove () {
+	void CheckMove () {	
 		direction = new Vector3 (0, 0, 0);
 
 		if (Input.GetKey (KeyCode.D) || Input.GetKey (KeyCode.RightArrow)) {
@@ -63,10 +74,16 @@ public class Player : MonoBehaviour {
 	}
 
 	void CheckJump () {
-		grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
+		if (grounded)
+			doubleJumped = false;
 
-		if ((Input.GetKey (KeyCode.Space) || Input.GetKey (KeyCode.W))  && grounded) {
+		if (Input.GetKeyDown (KeyCode.W) && grounded) {
 			isJumping = true;
+		}
+
+		if (Input.GetKeyDown (KeyCode.W) && !grounded && !doubleJumped) {
+			isJumping = true;
+			doubleJumped = true;
 		}
 	}
 
@@ -83,24 +100,13 @@ public class Player : MonoBehaviour {
 	}
 
 	void Bomb () {
-		Debug.Log ("Bomb has been planted."); 
+		Debug.Log ("Bomb has been planted"); 
 	}
 
 	void OnCollisionEnter2D (Collision2D col) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-		Debug.Log (col.collider.tag);
-=======
-=======
->>>>>>> 411c866c1647695f03154b1146b4bd0deb85a143
-		if (col.collider.tag == "Enemy") {
-
-		}
-	}
->>>>>>> 411c866c1647695f03154b1146b4bd0deb85a143
 
 		if (col.collider.tag == "Enemy" && !invulnerable) {
-			Debug.Log ("Collision with an enemy.");
+			//Debug.Log ("Collision with an enemy.");
 			collisionTime = Time.time;
 			invulnerable = true;
 			//Триггер для анимации мигания - здесь!
