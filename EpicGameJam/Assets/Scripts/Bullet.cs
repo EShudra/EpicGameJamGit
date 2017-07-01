@@ -47,8 +47,7 @@ public class Bullet : MonoBehaviour {
 		if ((coll.gameObject.tag == "Wall")||(coll.gameObject.tag == "Enemy") || (coll.gameObject.tag == "Ground")) {
 			this.enabled = false;
 			Destroy (this.gameObject);
-		}
-			
+		}	
 	}
 	
 }
