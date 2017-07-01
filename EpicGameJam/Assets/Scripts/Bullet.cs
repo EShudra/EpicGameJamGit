@@ -18,12 +18,17 @@ public class Bullet : MonoBehaviour {
 
 	//move bullet formard
 	void Move(){
-		//this.transform.Translate (new Vector3(bulletSpeed*Time.deltaTime, 0, 0));
-		if (this.transform.localScale.x > 0) {
-			this.transform.localPosition += new Vector3 (bulletSpeed * Time.deltaTime, 0, 0);
+		this.transform.Translate (new Vector3(bulletSpeed*Time.deltaTime, 0, 0), Space.Self);
+
+		/*if (this.transform.localScale.x > 0) {
+			//this.transform.localPosition += new Vector3 (bulletSpeed * Time.deltaTime, 0, 0);
+			//this.transform.localPosition += new Vector3 (bulletSpeed * Time.deltaTime, 0, 0);
+			this.transform.localPosition.x += bulletSpeed * Time.deltaTime;
 		} else {
-			this.transform.localPosition -= new Vector3 (bulletSpeed * Time.deltaTime, 0, 0);
-		}
+			//this.transform.localPosition -= new Vector3 (bulletSpeed * Time.deltaTime, 0, 0);
+			this.transform.localPosition.x -= bulletSpeed * Time.deltaTime;
+		}*/
+
 	}
 
 
@@ -31,6 +36,20 @@ public class Bullet : MonoBehaviour {
 	void Start () {
 		birthTime = Time.time;
 		//init bullet piercing
+
+
+		if (this.transform.localScale.x < 0) {
+			if (this.transform.rotation.eulerAngles.z > 0) {
+				//this.transform.rotation.eulerAngles.Set (0, 0, -180 - this.transform.rotation.eulerAngles.z);
+				transform.rotation = Quaternion.Euler( 0, 0, -180 - this.transform.rotation.eulerAngles.z);
+				//this.transform.localScale.Set (this.transform.localScale.x*-1,1,1);
+				transform.localScale = new Vector3(this.transform.localScale.x*-1,this.transform.localScale.y,this.transform.localScale.z);
+			} else {
+				//this.transform.rotation.eulerAngles.Set (0, 0, 180 - this.transform.rotation.eulerAngles.z);
+				transform.rotation = Quaternion.Euler( 0, 0, 180 - this.transform.rotation.eulerAngles.z);
+			}
+		} 
+
 	}
 	
 	// Update is called once per frame

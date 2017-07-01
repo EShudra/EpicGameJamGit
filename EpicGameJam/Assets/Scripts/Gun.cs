@@ -34,6 +34,7 @@ public class Gun : MonoBehaviour {
 				object obj = Instantiate( bulletPrefab, this.transform.position, Quaternion.Euler (0,0,item + fireLinesDispersionAngle*(Random.value*2-1)),this.transform );
 				GameObject go = obj as GameObject;
 				go.transform.position = go.transform.TransformPoint (go.transform.localPosition);
+				//go.transform.localRotation.eulerAngles.z;
 				this.transform.DetachChildren();
 
 
