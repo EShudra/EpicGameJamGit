@@ -14,6 +14,8 @@ public class Player : MonoBehaviour {
 	public float maximumHp;
 	//max bomb quantity
 	public int bombMaxCount;
+	//bomb current amount
+	public int bombCurrentAmount;
 	//bomb accuracy
 	public float bombAccuracy;
 	//number of bombs to instantiate per throw
