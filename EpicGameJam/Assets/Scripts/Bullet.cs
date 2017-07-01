@@ -14,6 +14,8 @@ public class Bullet : MonoBehaviour {
 	//lifrtime of bullet
 	public float lifetime = 10;
 
+	//bool piercing = false;
+
 	//move bullet formard
 	void Move(){
 		this.transform.Translate (new Vector3(bulletSpeed*Time.deltaTime, 0, 0));	
@@ -23,10 +25,11 @@ public class Bullet : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		birthTime = Time.time;
+		//init bullet piercing
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		Move ();
 		//preventing bullet from stucking
 		if (Time.time - birthTime > lifetime) {
@@ -40,7 +43,9 @@ public class Bullet : MonoBehaviour {
 		}*/
 		Debug.Log ("!!!!");
 		Debug.Log (coll.gameObject.tag);
-		if ((coll.gameObject.tag == "Wall")||(coll.gameObject.tag == "Enemy")) {
+		//if ((coll.gameObject.tag == "Wall")||(coll.gameObject.tag == "Enemy")) {
+		if ((coll.gameObject.tag == "Wall")||(coll.gameObject.tag == "Enemy") || (coll.gameObject.tag == "Ground")) {
+			this.enabled = false;
 			Destroy (this.gameObject);
 		}
 			
