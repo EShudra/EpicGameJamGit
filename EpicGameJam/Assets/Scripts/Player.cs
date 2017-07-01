@@ -87,7 +87,14 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D (Collision2D col) {
+<<<<<<< HEAD
 		Debug.Log (col.collider.tag);
+=======
+		if (col.collider.tag == "Enemy") {
+
+		}
+	}
+>>>>>>> 411c866c1647695f03154b1146b4bd0deb85a143
 
 		if (col.collider.tag == "Enemy" && !invulnerable) {
 			Debug.Log ("Collision with an enemy.");
