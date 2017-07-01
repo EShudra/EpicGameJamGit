@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour {
 	//number of directions in which bullets are spawned
 	public float[] fireLinesAngle;
 
-	//bullets trajrctory dispersion
+	//bullets trajectory dispersion
 	public float fireLinesDispersionAngle;
 
 	//bullet prefab to spawn
@@ -30,7 +30,14 @@ public class Gun : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Space) && (Time.time - lastBulletSpawnTime > fireRate)) {
 			lastBulletSpawnTime = Time.time;
 			foreach (float item in fireLinesAngle) {
-				Instantiate (bulletPrefab,this.transform.position,Quaternion.Euler (0,0,item + fireLinesDispersionAngle*(Random.value*2-1)));	
+
+				object obj = Instantiate( bulletPrefab, this.transform.position, Quaternion.Euler (0,0,item + fireLinesDispersionAngle*(Random.value*2-1)),this.transform );
+				GameObject go = obj as GameObject;
+				go.transform.position = go.transform.TransformPoint (go.transform.localPosition);
+				//go.transform.localRotation.eulerAngles.z;
+				this.transform.DetachChildren();
+
+
 			}
 
 		}
