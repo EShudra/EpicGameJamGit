@@ -37,12 +37,12 @@ public class Bullet : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionEnter2D  (Collision2D coll){
+	void OnCollisionStay2D  (Collision2D coll){
 		/*foreach(GameObject item in collision.gameObject){
 			Debug.Log("bam!");
 		}*/
-		Debug.Log ("!!!!");
-		Debug.Log (coll.gameObject.tag);
+		//Debug.Log ("!!!!");
+		//Debug.Log (coll.gameObject.tag);
 		//if ((coll.gameObject.tag == "Wall")||(coll.gameObject.tag == "Enemy")) {
 		if ((coll.gameObject.tag == "Wall")||(coll.gameObject.tag == "Enemy") || (coll.gameObject.tag == "Ground")) {
 			this.enabled = false;
