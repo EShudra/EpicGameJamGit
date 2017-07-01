@@ -24,7 +24,7 @@ public class Player : MonoBehaviour {
 	[HideInInspector] public float jumpForce = 1000f;
 	public Transform groundCheck;
 	public float gravityScale = 7f;
-	public float invulnerabilityTime = 6f;
+	public float invulnerabilityTime = 2f;
 
 	private bool doubleJumped;
 	private float collisionTime;
@@ -53,10 +53,13 @@ public class Player : MonoBehaviour {
 		Move ();
 		Jump ();
 
-		if (Time.time >= (collisionTime + invulnerabilityTime))
+		if (Time.time >= (collisionTime + invulnerabilityTime)) {
 			invulnerable = false;
+			Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"),LayerMask.NameToLayer ("Enemy"),invulnerable);
+		}
+			
 
-		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"),LayerMask.NameToLayer ("Enemy"),invulnerable);
+
 	}
 
 	void CheckMove () {	
@@ -89,11 +92,16 @@ public class Player : MonoBehaviour {
 
 	void Move () {
 		if (direction != new Vector3 (0, 0, 0))
+<<<<<<< HEAD
+			//transform.Translate (speed * direction * Time.deltaTime);
+			this.GetComponent<Rigidbody2D>().transform.Translate(speed * direction * Time.deltaTime);
+=======
 			transform.Translate (speed * direction * Time.deltaTime);
 
 		float localX = transform.localScale.x * (-1f);
 		if ((facingRight && transform.localScale.x <= 0) || (!facingRight && transform.localScale.x >= 0))
 			transform.localScale = new Vector3 (transform.localScale.x * (-1), transform.localScale.y, transform.localScale.z);
+>>>>>>> master
 	}
 		
 	void Jump () {
@@ -107,12 +115,14 @@ public class Player : MonoBehaviour {
 		Debug.Log ("Bomb has been planted"); 
 	}
 
-	void OnCollisionEnter2D (Collision2D col) {
-
-		if (col.collider.tag == "Enemy" && !invulnerable) {
-			//Debug.Log ("Collision with an enemy.");
+	void OnCollisionStay2D (Collision2D col) {
+		Debug.Log ("Col");
+		//if (col.collider.tag == "Enemy" && !invulnerable) {
+		if (col.collider.tag == "Enemy") {
+			Debug.Log ("Collision with an enemy.");
 			collisionTime = Time.time;
 			invulnerable = true;
+			Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"),LayerMask.NameToLayer ("Enemy"),invulnerable);
 			//Триггер для анимации мигания - здесь!
 
 			if (col.transform.position.x < transform.position.x) {
@@ -122,4 +132,6 @@ public class Player : MonoBehaviour {
 			}
 		}
 	}
+		
+
 }
