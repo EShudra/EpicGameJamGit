@@ -18,7 +18,12 @@ public class Bullet : MonoBehaviour {
 
 	//move bullet formard
 	void Move(){
-		this.transform.Translate (new Vector3(bulletSpeed*Time.deltaTime, 0, 0));	
+		//this.transform.Translate (new Vector3(bulletSpeed*Time.deltaTime, 0, 0));
+		if (this.transform.localScale.x > 0) {
+			this.transform.localPosition += new Vector3 (bulletSpeed * Time.deltaTime, 0, 0);
+		} else {
+			this.transform.localPosition -= new Vector3 (bulletSpeed * Time.deltaTime, 0, 0);
+		}
 	}
 
 
