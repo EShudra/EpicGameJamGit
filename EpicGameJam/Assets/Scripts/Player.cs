@@ -23,7 +23,6 @@ public class Player : MonoBehaviour {
 
 	[HideInInspector] public float jumpForce = 1000f;
 	public Transform groundCheck;
-	public float gravityScale = 7f;
 	public float invulnerabilityTime = 2f;
 
 	private bool doubleJumped;
@@ -46,7 +45,6 @@ public class Player : MonoBehaviour {
 
 	void Start () {
 		rb2D = GetComponent<Rigidbody2D> ();
-		rb2D.gravityScale = gravityScale;
 		invulnerable = false;
 	}
 
@@ -66,9 +64,6 @@ public class Player : MonoBehaviour {
 			invulnerable = false;
 			Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"),LayerMask.NameToLayer ("Enemy"),invulnerable);
 		}
-			
-
-
 	}
 
 	void CheckMove () {	
