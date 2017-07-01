@@ -3,23 +3,23 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-	//Скорость персонажа
+	//player speed
 	public float speed = 10f;
-	//Используется как множитель к силе прыжка. ГД нужно дать доступ только к этой переменной.
+	//jump power modifier
 	public float jumpHeight = 1f;
-	//Просто спрайт персонажа
+	//player sprite
 	public Sprite skin;
-	//Текущее хп/максимальное хп, всё просто
+	//current and max hp
 	public float currentHp;
 	public float maximumHp;
-	//Максимальное количество бомб
+	//max bomb quantity
 	public int bombMaxCount;
-	//Разброс бомб
+	//bomb accuracy
 	public float bombAccuracy;
-	//Количество бомб за бросок
+	//number of bombs to instantiate per throw
 	public int bombsPerThrow;
-	//Угол отклонения бомб
-	public float bombAnlge;
+	//bomb accuracy angle
+	public float bombAngle;
 
 	[HideInInspector] public float jumpForce = 1000f;
 	public Transform groundCheck;
@@ -31,10 +31,18 @@ public class Player : MonoBehaviour {
 	private bool invulnerable = false;
 	private bool grounded = true;
 	private bool isJumping = false;
-	private bool facingRight = false;
+	[HideInInspector] public bool facingRight = false;
 	private Vector3 direction;
 	private Rigidbody2D rb2D;
 
+	//number of directions in which bombs are spawned
+	public float[] bombLinesAngle;
+	//bombs trajectory dispersion
+	public float bombLinesDispersionAngle;
+	//bullet prefab to spawn
+	public GameObject bombPrefab;
+	//bomb spawn point
+	public Transform bombSpawnPoint;
 
 	void Start () {
 		rb2D = GetComponent<Rigidbody2D> ();
@@ -52,6 +60,7 @@ public class Player : MonoBehaviour {
 
 		Move ();
 		Jump ();
+		Bomb (); 
 
 		if (Time.time >= (collisionTime + invulnerabilityTime))
 			invulnerable = false;
@@ -77,11 +86,11 @@ public class Player : MonoBehaviour {
 		if (grounded)
 			doubleJumped = false;
 
-		if (Input.GetKeyDown (KeyCode.W) && grounded) {
+		if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow)) && grounded) {
 			isJumping = true;
 		}
 
-		if (Input.GetKeyDown (KeyCode.W) && !grounded && !doubleJumped) {
+		if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow)) && !grounded && !doubleJumped) {
 			isJumping = true;
 			doubleJumped = true;
 		}
@@ -91,7 +100,6 @@ public class Player : MonoBehaviour {
 		if (direction != new Vector3 (0, 0, 0))
 			transform.Translate (speed * direction * Time.deltaTime);
 
-		float localX = transform.localScale.x * (-1f);
 		if ((facingRight && transform.localScale.x <= 0) || (!facingRight && transform.localScale.x >= 0))
 			transform.localScale = new Vector3 (transform.localScale.x * (-1), transform.localScale.y, transform.localScale.z);
 	}
@@ -104,7 +112,10 @@ public class Player : MonoBehaviour {
 	}
 
 	void Bomb () {
-		Debug.Log ("Bomb has been planted"); 
+		if (Input.GetKeyDown (KeyCode.Z)) {
+			Debug.Log ("Bomb has been thrown");
+			Instantiate (bombPrefab,this.bombSpawnPoint.position, Quaternion.identity);
+		}
 	}
 
 	void OnCollisionEnter2D (Collision2D col) {

@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour {
 	//number of directions in which bullets are spawned
 	public float[] fireLinesAngle;
 
-	//bullets trajrctory dispersion
+	//bullets trajectory dispersion
 	public float fireLinesDispersionAngle;
 
 	//bullet prefab to spawn
