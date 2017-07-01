@@ -70,6 +70,10 @@ EpicGameJam/Library/metadata/00/00000000000000003000000000000000
 EpicGameJam/Library/metadata/00/00000000000000004000000000000000
 EpicGameJam/Library/assetDatabase3
 EpicGameJam/EpicGameJam.userprefs
+<<<<<<< HEAD
+EpicGameJam/EpicGameJam.userprefs
+*.userprefs
+=======
 >>>>>>> master
 EpicGameJam/Library/metadata/00/00000000000000003000000000000000
 EpicGameJam/Library/metadata/00/00000000000000004000000000000000
@@ -77,3 +81,5 @@ EpicGameJam/Assets/AnglainScene.unity
 EpicGameJam/Library/assetDatabase3
 EpicGameJam/Library/assetDatabase3
 EpicGameJam/Library/assetDatabase3
+>>>>>>> master
+EpicGameJam/Library/LastSceneManagerSetup.txt
