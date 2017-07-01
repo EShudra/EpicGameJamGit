@@ -41,13 +41,13 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionEnter2D(Collision2D coll){
+	void OnCollisionStay2D(Collision2D coll){
 		if (coll.collider.tag == "Bullet"){
 			getDamage(coll.collider.gameObject.GetComponent<Bullet> ().damage);
 		}
 
 		//reverse scale if collidessmth exept player
-		if ((coll.collider.tag != "Player") && (coll.collider.tag != "Bullet")) {
+		if ((coll.collider.tag != "Player") && (coll.collider.tag != "Bullet") && (coll.collider.tag != "Enemy")) {
 
 			RaycastHit2D[] hits;
 			thisCollider.enabled = false;
@@ -57,13 +57,14 @@ public class Enemy : MonoBehaviour {
 
 			end += moveVector * enemySpeed * Time.deltaTime;
 			hits = Physics2D.LinecastAll (this.transform.position, end);
+			//hits = Physics2D.BoxCastAll (this.transform.position, thisCollider.size*0.9f, 0, moveVector, thisCollider.size.x);
 
 			Debug.DrawLine (this.transform.position, end, Color.red);
 			thisCollider.enabled = true;
 
 			if (hits.Length != 0) {
 				foreach (var hit in hits) {
-					if ((hit.collider.tag != "Player") && (hit.collider.tag != "Bullet")) {
+					if ((hit.collider.tag != "Player") && (hit.collider.tag != "Bullet") && (hit.collider.tag != "Enemy")) {
 						Debug.Log ("TURN");
 						this.transform.localScale = new Vector3 (this.transform.lossyScale.x * -1, this.transform.lossyScale.y, this.transform.lossyScale.z);
 						moveVector *= -1;
