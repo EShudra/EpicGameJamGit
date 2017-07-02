@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Gun : MonoBehaviour {
 
+	public AudioClip shootingSound;
 	//how often bullets are spawned. period in seconds between spawn
 	public float fireRate;
 
@@ -30,8 +31,8 @@ public class Gun : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Space) && (Time.time - lastBulletSpawnTime > fireRate)) {
 			lastBulletSpawnTime = Time.time;
 			foreach (float item in fireLinesAngle) {
-
 				object obj = Instantiate( bulletPrefab, this.transform.position, Quaternion.Euler (0,0,item + fireLinesDispersionAngle*(Random.value*2-1)),this.transform );
+				SoundManager.instance.PlaySingle (shootingSound);
 				GameObject go = obj as GameObject;
 				go.transform.position = go.transform.TransformPoint (go.transform.localPosition);
 				//go.transform.localRotation.eulerAngles.z;

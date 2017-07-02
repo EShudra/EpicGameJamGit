@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
 
+	public AudioClip walking1;
+	public AudioClip walking2;
+
+	public bool moving = false;
 	//player speed
 	public float speed = 10f;
 	//jump power modifier
@@ -101,6 +105,7 @@ public class Player : MonoBehaviour {
 	void Update () {
 		CheckMove ();
 		CheckJump ();
+		TriggerMoveAnimation ();
 	}
 
 	void FixedUpdate () {
@@ -122,11 +127,13 @@ public class Player : MonoBehaviour {
 		if (Input.GetKey (KeyCode.D) || Input.GetKey (KeyCode.RightArrow)) {
 			direction += Vector3.right;
 			facingRight = true;
-		}
-
-		if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow)) {
+			moving = true;
+		} else if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow)) {
 			direction += Vector3.left;
 			facingRight = false;
+			moving = true;
+		} else {
+			moving = false;
 		}
 	}
 
@@ -134,13 +141,18 @@ public class Player : MonoBehaviour {
 		if (grounded)
 			doubleJumped = false;
 
+		if (isJumping)
+			moving = true;
+
 		if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow)) && grounded) {
 			isJumping = true;
+			moving = true;
 		}
 
-		if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow)) && !grounded && !doubleJumped) {
+		else if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow)) && !grounded && !doubleJumped) {
 			isJumping = true;
 			doubleJumped = true;
+			moving = true;
 		}
 	}
 
@@ -168,6 +180,20 @@ public class Player : MonoBehaviour {
 				bombCurrentAmount--;
 			Instantiate (bombThrowablePrefab,this.bombSpawnPoint.position, Quaternion.identity);
 		}
+	}
+
+	void TriggerWalkSounds () {
+		float randomClipChooser = Random.Range (0,10);
+
+		if (moving && grounded) {
+			SoundManager.instance.RandomizeSfx (walking1, walking2);
+		}
+			
+	}
+
+	void TriggerMoveAnimation () {
+		Animator anim = GetComponent<Animator>();
+		anim.SetTrigger ("moving");
 	}
 
 	void OnCollisionStay2D (Collision2D col) {
