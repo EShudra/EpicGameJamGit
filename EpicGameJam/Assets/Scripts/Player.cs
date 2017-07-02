@@ -17,6 +17,8 @@ public class Player : MonoBehaviour, IWorldObject {
 	public bool doubleJumpAbility = true;
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -29,6 +31,7 @@ public class Player : MonoBehaviour, IWorldObject {
 	public bool doubleJumpAbility = true;
 >>>>>>> master
 
+>>>>>>> master
 	public bool moving = false;
 	//player speed
 	public float speed = 10f;
@@ -338,6 +341,8 @@ public class Player : MonoBehaviour, IWorldObject {
 =======
 >>>>>>> master
 	}
+<<<<<<< HEAD
+=======
 
 	public void InitParameters(){
 		doubleJumpAbility = wCont.playerDoubleJump;
@@ -352,4 +357,5 @@ public class Player : MonoBehaviour, IWorldObject {
 	}
 
 
+>>>>>>> master
 }
