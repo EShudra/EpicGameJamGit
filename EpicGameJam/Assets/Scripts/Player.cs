@@ -2,10 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, IWorldObject {
+
+	public WorldController wCont;
 
 	public AudioClip walking1;
 	public AudioClip walking2;
+
+	public bool doubleJumpAbility = true;
 
 	public bool moving = false;
 	//player speed
@@ -63,6 +67,10 @@ public class Player : MonoBehaviour {
 	public Transform bombSpawnPoint;
 
 	void Start () {
+		wCont = GameObject.FindObjectOfType<WorldController> ();
+		InitParameters ();
+		currentHp = maximumHp;
+
 		rb2D = GetComponent<Rigidbody2D> ();
 		invulnerable = false;
 
@@ -149,7 +157,7 @@ public class Player : MonoBehaviour {
 			moving = true;
 		}
 
-		else if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow)) && !grounded && !doubleJumped) {
+		else if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow)) && !grounded && !doubleJumped && doubleJumpAbility) {
 			isJumping = true;
 			doubleJumped = true;
 			moving = true;
@@ -202,6 +210,7 @@ public class Player : MonoBehaviour {
 
 			if (currentHp <= maximumHp && currentHp > 0) {
 				currentHp--;
+				Debug.Log (currentHp);
 				RemoveHeart ();
 				if (currentHp == 0)
 					Death ();
@@ -237,5 +246,16 @@ public class Player : MonoBehaviour {
 		//death animation
 		if (this.gameObject != null)
 			Destroy(this.gameObject);
+	}
+
+	public void InitParameters(){
+		doubleJumpAbility = wCont.playerDoubleJump;
+		maximumHp += wCont.playerHpIncrement;
+		if (maximumHp <= 0) {
+			maximumHp = 1;
+		}
+		wCont.playerHpIncrement = 0;
+		jumpHeight = wCont.playerJumpHeight;
+		speed = wCont.playerSpeed;
 	}
 }

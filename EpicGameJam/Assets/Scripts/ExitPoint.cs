@@ -3,6 +3,17 @@ using System.Collections;
 
 public class ExitPoint : MonoBehaviour {
 
+	//
+	public QuestionController qCont;
+
+	//
+	public GameObject level;
+
+	/*
+	public static int lvl;
+	public int maxLvl;
+	*/
+
 	//time from this created when exit will opens(in seconds)
 	public float timeWhenOpens;
 
@@ -23,6 +34,7 @@ public class ExitPoint : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
 		if (timeWhenOpens < Time.time - birthTime ){
 			this.gameObject.GetComponent<Animator> ().SetBool ("active", true);	
 
@@ -48,11 +60,15 @@ public class ExitPoint : MonoBehaviour {
 
 	void EndLevel(){
 		if (exitOpened) {
-			foreach (var item in GameObject.FindObjectsOfType<GameObject>()) {
+			Destroy (level);
+			qCont.NextQuestion ();
+			/*foreach (var item in GameObject.FindObjectsOfType<GameObject>()) {
 				if (item.GetComponent<Camera> () == null) {
 					Destroy (item);
 				}
-			}
+			}*/
 		}
 	}
+
+
 }
