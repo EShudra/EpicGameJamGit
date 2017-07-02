@@ -30,13 +30,16 @@ public class WorldController : MonoBehaviour {
 	public bool playerDoubleJump;
 	public int playerGrenadesCount;
 	public int playerGrenadesCountMax;
+
 	//gun---------
 	public Sprite[] gunSprites;
 	public int gunSprite;
 	public float gunFireRate;
 	public float[] gunFireLinesAngle;
 	public int gunFireLinesCount;
+
 	public float[] gunFiveLines = new float[5]{0,0,0,0,0};
+
 	public float gunFireLinesDispersion;
 	public float gunAccuracyAngle;
 
@@ -160,7 +163,6 @@ public class WorldController : MonoBehaviour {
 		playerGrenadesCount = int.Parse (gameSettings ["playerGrenadesCount"]);
 
 		playerGrenadesCountMax = int.Parse (gameSettings ["playerGrenadesCountMax"]);
-
 
 		//=====gun=============================
 
