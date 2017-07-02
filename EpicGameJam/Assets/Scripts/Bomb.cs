@@ -59,7 +59,7 @@ public class Bomb : MonoBehaviour, IWorldObject {
 		rb2D.AddTorque (2f);
 	}
 
-	void OnCollisionEnter2D (Collision2D col) {
+	void OnCollisionStay2D (Collision2D col) {
 		if ((col.gameObject.tag == "Wall")||(col.gameObject.tag == "Enemy") || (col.gameObject.tag == "Ground")) {
 			Explode ();
 		}
