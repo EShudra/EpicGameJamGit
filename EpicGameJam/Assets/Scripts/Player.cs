@@ -128,12 +128,7 @@ public class Player : MonoBehaviour, IWorldObject {
 	void Update () {
 		CheckMove ();
 		CheckJump ();
-<<<<<<< HEAD
-		//TriggerMoveAnimation ();
-=======
-		TriggerMoveAnimation ();
 		TriggerWalkSounds ();
->>>>>>> master
 	}
 
 	void FixedUpdate () {
@@ -204,13 +199,8 @@ public class Player : MonoBehaviour, IWorldObject {
 		
 	void Jump () {
 		if (isJumping) {
-<<<<<<< HEAD
 			rb2D.Sleep();
 			rb2D.WakeUp(); 
-=======
-			rb2D.Sleep ();
-			rb2D.WakeUp ();
->>>>>>> master
 			rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
 			if (!doubleJumped)
 				SoundManager.instance.PlayPlayerSound (jumpSound);
@@ -285,17 +275,12 @@ public class Player : MonoBehaviour, IWorldObject {
 	void Death () {
 		//death animation
 		if (this.gameObject != null) {
-<<<<<<< HEAD
 			anim.SetBool ("dead", true);
 			this.GetComponent<BoxCollider2D> ().enabled = false;
 			rb2D.AddForce(new Vector2(0,310f));
 			rb2D.gravityScale = 1.5f;
 			Destroy (this.gameObject, 2.2f);
 			StartCoroutine (BloodVfx (1));
-=======
-			anim.SetTrigger("dead");
-			Destroy (this.gameObject);
->>>>>>> master
 		}
 	}
 
@@ -317,7 +302,6 @@ public class Player : MonoBehaviour, IWorldObject {
 			bombCurrentAmount = bombMaxCount;
 		}
 	}
-<<<<<<< HEAD
 
 	IEnumerator BloodVfx(float delay){
 		float startTime = Time.time;
@@ -336,7 +320,5 @@ public class Player : MonoBehaviour, IWorldObject {
 			yield return null;
 		}
 	}
-
-=======
->>>>>>> master
+		
 }
