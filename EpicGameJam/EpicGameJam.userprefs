@@ -1,14 +1,21 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\WorldController.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player.cs" Line="111" Column="4" />
+      <File FileName="Assets\Scripts\Player.cs" Line="272" Column="3" />
       <File FileName="Assets\Scripts\IDestroyableObject.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\IWorldObject.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Bomb.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Bullet.cs" Line="5" Column="2" />
-      <File FileName="Assets\Scripts\Gun.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Explosion.cs" Line="4" Column="41" />
+      <File FileName="Assets\Scripts\Bullet.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Gun.cs" Line="17" Column="2" />
+      <File FileName="Assets\Scripts\Explosion.cs" Line="10" Column="48" />
+      <File FileName="Assets\Scripts\ExitPoint.cs" Line="12" Column="4" />
+      <File FileName="Assets\Scripts\QuestionController.cs" Line="19" Column="29" NotebookId="1" />
+      <File FileName="Assets\Scripts\Question.cs" Line="24" Column="59" NotebookId="1" />
+      <File FileName="Assets\Scripts\CameraBehaviour.cs" Line="8" Column="17" NotebookId="1" />
+      <File FileName="Assets\Scripts\AnswersLibrary.cs" Line="163" Column="7" NotebookId="1" />
+      <File FileName="Assets\Scripts\WorldController.cs" Line="104" Column="3" NotebookId="1" />
+      <File FileName="Assets\Scripts\Enemy.cs" Line="45" Column="21" NotebookId="1" />
+      <File FileName="Assets\Scripts\Answer.cs" Line="22" Column="2" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
