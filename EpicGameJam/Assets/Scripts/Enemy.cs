@@ -46,9 +46,12 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 
 		if (enemyHp <= 0) {
 			if (this.enemyType == "kitten")
-				SoundManager.instance.PlaySingle (kittenDeath);
+				StartCoroutine (playKittemSound ());
 			anim.SetTrigger ("dead");
-			Destroy (gameObject);
+			this.GetComponent<BoxCollider2D> ().enabled = false;
+			this.GetComponent<Rigidbody2D> ().gravityScale = 0;
+			enemySpeed = 0;
+			Destroy (gameObject, 1f);
 		}
 	}
 
@@ -85,9 +88,11 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 				}
 			}
 		}
-	
-			
+	}
 
+	IEnumerator playKittemSound(){
+		yield return new WaitForSeconds (Random.value * 0.3f);
+		GetComponent<AudioSource> ().Play ();
 	}
 
 }

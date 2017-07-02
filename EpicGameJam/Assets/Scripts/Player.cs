@@ -295,12 +295,10 @@ public class Player : MonoBehaviour, IWorldObject {
 		jumpHeight = wCont.playerJumpHeight;
 		speed = wCont.playerSpeed;
 
-		bombMaxCount = wCont.playerGrenadesCountMax;
-		if (wCont.playerGrenadesCount <= bombMaxCount) {
-			bombCurrentAmount = wCont.playerGrenadesCount;
-		} else {
-			bombCurrentAmount = bombMaxCount;
-		}
+		bombMaxCount += wCont.playerGrenadesCountMaxInc;
+		wCont.playerGrenadesCountMaxInc = 0;
+		bombCurrentAmount = bombMaxCount;
+
 	}
 
 	IEnumerator BloodVfx(float delay){
