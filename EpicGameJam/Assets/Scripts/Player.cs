@@ -19,6 +19,8 @@ public class Player : MonoBehaviour, IWorldObject {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+	public bool doubleJumpAbility = true;
 >>>>>>> master
 =======
 	public bool doubleJumpAbility = true;
@@ -214,6 +216,7 @@ public class Player : MonoBehaviour, IWorldObject {
 =======
 >>>>>>> master
 =======
+>>>>>>> master
 			rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
 			if (!doubleJumped)
 				SoundManager.instance.PlaySingle (jumpSound);
@@ -289,7 +292,10 @@ public class Player : MonoBehaviour, IWorldObject {
 			Destroy (this.gameObject);
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> master
 	}
 
 	public void InitParameters(){
@@ -330,6 +336,7 @@ public class Player : MonoBehaviour, IWorldObject {
 		bombMaxCount = bombCurrentAmount;
 =======
 =======
+>>>>>>> master
 	}
 
 	public void InitParameters(){
