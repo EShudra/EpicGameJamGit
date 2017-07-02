@@ -16,6 +16,9 @@ public class WorldController : MonoBehaviour {
 	//Drag & drop main retry here
 	public GameObject retryMenu;
 
+	//Drag & drop here
+	public QuestionController qCont;
+
 	//dictionary of game settings
 	public Dictionary<string, string> gameSettings = new Dictionary<string, string>();
 
@@ -137,7 +140,7 @@ public class WorldController : MonoBehaviour {
 
 	public void StartGame(){
 		mainMenu.gameObject.SetActive (false);
-		Instantiate (levelPrefabs [currentLvlPrefab]);
+		qCont.gameObject.SetActive (true);
 	}
 
 	public void ShowRetryMenu(bool state){

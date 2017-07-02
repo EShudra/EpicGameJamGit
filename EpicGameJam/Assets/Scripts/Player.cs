@@ -6,6 +6,8 @@ public class Player : MonoBehaviour, IWorldObject {
 
 	public WorldController wCont;
 
+	public GameObject retryMenu;
+
 	//blood vfx
 	public GameObject bloodHitPrefab1;
 	public GameObject bloodHitPrefab2;
@@ -284,6 +286,7 @@ public class Player : MonoBehaviour, IWorldObject {
 			speed = 0;
 			Destroy (this.gameObject, 2.2f);
 			StartCoroutine (BloodVfx (1));
+			StartCoroutine (spawnRetryMenu (2));
 		}
 	}
 
@@ -321,5 +324,10 @@ public class Player : MonoBehaviour, IWorldObject {
 			}
 			yield return null;
 		}
+	}
+
+	IEnumerator spawnRetryMenu(float delay){
+		yield return new WaitForSeconds (delay);
+		retryMenu.SetActive (true);
 	}
 }
