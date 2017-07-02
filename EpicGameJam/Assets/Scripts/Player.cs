@@ -15,23 +15,6 @@ public class Player : MonoBehaviour, IWorldObject {
 	public AudioClip hitSound4;
 
 	public bool doubleJumpAbility = true;
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	public bool doubleJumpAbility = true;
->>>>>>> master
-=======
-	public bool doubleJumpAbility = true;
->>>>>>> master
-=======
-	public bool doubleJumpAbility = true;
->>>>>>> master
-
->>>>>>> master
 	public bool moving = false;
 	//player speed
 	public float speed = 10f;
@@ -209,17 +192,8 @@ public class Player : MonoBehaviour, IWorldObject {
 		
 	void Jump () {
 		if (isJumping) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 			rb2D.Sleep ();
 			rb2D.WakeUp ();
-=======
->>>>>>> master
-=======
->>>>>>> master
-=======
->>>>>>> master
 			rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
 			if (!doubleJumped)
 				SoundManager.instance.PlaySingle (jumpSound);
@@ -294,11 +268,6 @@ public class Player : MonoBehaviour, IWorldObject {
 			anim.SetBool ("dead", true);
 			Destroy (this.gameObject);
 		}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> master
 	}
 
 	public void InitParameters(){
@@ -310,52 +279,7 @@ public class Player : MonoBehaviour, IWorldObject {
 		wCont.playerHpIncrement = 0;
 		jumpHeight = wCont.playerJumpHeight;
 		speed = wCont.playerSpeed;
-	}
-
-	public void InitParameters(){
-		doubleJumpAbility = wCont.playerDoubleJump;
-		maximumHp += wCont.playerHpIncrement;
-		if (maximumHp <= 0) {
-			maximumHp = 1;
-		}
-		wCont.playerHpIncrement = 0;
-		jumpHeight = wCont.playerJumpHeight;
-		speed = wCont.playerSpeed;
-<<<<<<< HEAD
->>>>>>> master
-	}
-
-	public void InitParameters(){
-		doubleJumpAbility = wCont.playerDoubleJump;
-		maximumHp += wCont.playerHpIncrement;
-		if (maximumHp <= 0) {
-			maximumHp = 1;
-		}
-		wCont.playerHpIncrement = 0;
-		jumpHeight = wCont.playerJumpHeight;
-		speed = wCont.playerSpeed;
-<<<<<<< HEAD
 		bombCurrentAmount = wCont.playerGrenadesCount;
 		bombMaxCount = bombCurrentAmount;
-=======
-=======
->>>>>>> master
 	}
-<<<<<<< HEAD
-=======
-
-	public void InitParameters(){
-		doubleJumpAbility = wCont.playerDoubleJump;
-		maximumHp += wCont.playerHpIncrement;
-		if (maximumHp <= 0) {
-			maximumHp = 1;
-		}
-		wCont.playerHpIncrement = 0;
-		jumpHeight = wCont.playerJumpHeight;
-		speed = wCont.playerSpeed;
->>>>>>> master
-	}
-
-
->>>>>>> master
 }

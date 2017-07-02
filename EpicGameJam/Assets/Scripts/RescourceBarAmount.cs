@@ -14,13 +14,13 @@ public class RescourceBarAmount : MonoBehaviour {
 		if(parameter == 1)
 			textfield.text = "HP amount: "+player.currentHp+"/"+player.maximumHp;
 		else
-			textfield.text = "HP amount: "+player.bombCurrentAmount+"/"+player.bombMaxCount;
+			textfield.text = "Grenades amount: "+player.bombCurrentAmount+"/"+player.bombMaxCount;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(parameter == 1)
-			textfield.text = "Grenades amount: "+player.currentHp+"/"+player.maximumHp;
+			textfield.text = "HP amount: "+player.currentHp+"/"+player.maximumHp;
 		else
 			textfield.text = "Grenades amount: "+player.bombCurrentAmount+"/"+player.bombMaxCount;
 	}
