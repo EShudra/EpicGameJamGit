@@ -29,7 +29,10 @@ public class WorldController : MonoBehaviour {
 	public float playerJumpHeight;
 	public bool playerDoubleJump;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public int playerGrenadesCount;
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 
@@ -40,7 +43,11 @@ public class WorldController : MonoBehaviour {
 	public float[] gunFireLinesAngle;
 	public int gunFireLinesCount;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public float[] gunFiveLines = new float[5]{0,0,0,0,0};
+=======
+	public float[] gunFiveLines = new float[5];
+>>>>>>> master
 =======
 	public float[] gunFiveLines = new float[5];
 >>>>>>> master
@@ -83,8 +90,11 @@ public class WorldController : MonoBehaviour {
 		gameSettings.Add ("playerJumpPower", playerJumpHeight.ToString());
 		gameSettings.Add ("playerHpIncrement", playerHpIncrement.ToString());
 <<<<<<< HEAD
+<<<<<<< HEAD
 		gameSettings.Add ("playerGrenadesCount", playerGrenadesCount.ToString());
 		 
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 
@@ -93,7 +103,10 @@ public class WorldController : MonoBehaviour {
 		gameSettings.Add ("gunAccuracy", gunAccuracyAngle.ToString());
 		gameSettings.Add ("gunFireLinesAmount", gunFireLinesCount.ToString());
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 		gameSettings.Add ("gunFireLineAngle1", gunFiveLines[0].ToString());
@@ -134,7 +147,11 @@ public class WorldController : MonoBehaviour {
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bullet"), LayerMask.NameToLayer ("Player"), true);
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bomb"), LayerMask.NameToLayer ("Player"), true);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Enemy"), LayerMask.NameToLayer ("ExitPoint"), true);
+=======
+
+>>>>>>> master
 =======
 
 >>>>>>> master
@@ -170,8 +187,11 @@ public class WorldController : MonoBehaviour {
 		playerHpIncrement = int.Parse( gameSettings["playerHpIncrement"]);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		playerGrenadesCount = int.Parse (gameSettings ["playerGrenadesCount"]);
 
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 

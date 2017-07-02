@@ -17,6 +17,10 @@ public class Player : MonoBehaviour, IWorldObject {
 	public bool doubleJumpAbility = true;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	public bool doubleJumpAbility = true;
+>>>>>>> master
 =======
 	public bool doubleJumpAbility = true;
 >>>>>>> master
@@ -199,8 +203,11 @@ public class Player : MonoBehaviour, IWorldObject {
 	void Jump () {
 		if (isJumping) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			rb2D.Sleep ();
 			rb2D.WakeUp ();
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 			rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
@@ -277,6 +284,31 @@ public class Player : MonoBehaviour, IWorldObject {
 			anim.SetBool ("dead", true);
 			Destroy (this.gameObject);
 		}
+<<<<<<< HEAD
+=======
+	}
+
+	public void InitParameters(){
+		doubleJumpAbility = wCont.playerDoubleJump;
+		maximumHp += wCont.playerHpIncrement;
+		if (maximumHp <= 0) {
+			maximumHp = 1;
+		}
+		wCont.playerHpIncrement = 0;
+		jumpHeight = wCont.playerJumpHeight;
+		speed = wCont.playerSpeed;
+	}
+
+	public void InitParameters(){
+		doubleJumpAbility = wCont.playerDoubleJump;
+		maximumHp += wCont.playerHpIncrement;
+		if (maximumHp <= 0) {
+			maximumHp = 1;
+		}
+		wCont.playerHpIncrement = 0;
+		jumpHeight = wCont.playerJumpHeight;
+		speed = wCont.playerSpeed;
+>>>>>>> master
 	}
 
 	public void InitParameters(){

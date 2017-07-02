@@ -14,9 +14,12 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 
 	public AudioClip kittenDeath;
 	public string enemyType;
+<<<<<<< HEAD
 
 	public AudioClip kittenDeath;
 	public string enemyType;
+=======
+>>>>>>> master
 
 	//movement vector
 	public Vector3 moveVector = new Vector3 ( 1, 0, 0);
@@ -48,6 +51,9 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 		if (enemyHp <= 0) {
 =======
 		if (enemyHp < 0) {
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 			if (this.enemyType == "kitten")
 				SoundManager.instance.PlaySingle (kittenDeath);
