@@ -6,6 +6,11 @@ public class Player : MonoBehaviour {
 
 	public AudioClip walking1;
 	public AudioClip walking2;
+	public AudioClip jumpSound;
+	public AudioClip hitSound1;
+	public AudioClip hitSound2;
+	public AudioClip hitSound3;
+	public AudioClip hitSound4;
 
 	public bool moving = false;
 	//player speed
@@ -61,10 +66,13 @@ public class Player : MonoBehaviour {
 	public GameObject bombThrowablePrefab;
 	//bomb spawn point
 	public Transform bombSpawnPoint;
+	//animator
+	private Animator anim;
 
 	void Start () {
 		rb2D = GetComponent<Rigidbody2D> ();
 		invulnerable = false;
+		anim = GetComponent<Animator> ();
 
 		if (bombMaxCount > maximumGrenadesToSpawn)
 			bombMaxCount = maximumGrenadesToSpawn;
@@ -114,11 +122,18 @@ public class Player : MonoBehaviour {
 		Move ();
 		Jump ();
 		Bomb (); 
+		MuteMusic ();
 
 		if (Time.time >= (collisionTime + invulnerabilityTime)) {
 			invulnerable = false;
+			anim.SetBool ("onHit",false);
 			Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"),LayerMask.NameToLayer ("Enemy"),invulnerable);
 		}
+	}
+
+	void MuteMusic () {
+		if (Input.GetKeyDown (KeyCode.M))
+			SoundManager.instance.musicSource.mute = !SoundManager.instance.musicSource.mute;
 	}
 
 	void CheckMove () {	
@@ -135,6 +150,16 @@ public class Player : MonoBehaviour {
 		} else {
 			moving = false;
 		}
+	}
+
+	void Move () {
+		if (direction != new Vector3 (0, 0, 0))
+
+			transform.Translate (speed * direction * Time.deltaTime);
+
+		if ((facingRight && transform.localScale.x <= 0) || (!facingRight && transform.localScale.x >= 0))
+			transform.localScale = new Vector3 (transform.localScale.x * (-1), transform.localScale.y, transform.localScale.z);
+
 	}
 
 	void CheckJump () {
@@ -155,20 +180,12 @@ public class Player : MonoBehaviour {
 			moving = true;
 		}
 	}
-
-	void Move () {
-		if (direction != new Vector3 (0, 0, 0))
-
-			transform.Translate (speed * direction * Time.deltaTime);
-
-		if ((facingRight && transform.localScale.x <= 0) || (!facingRight && transform.localScale.x >= 0))
-			transform.localScale = new Vector3 (transform.localScale.x * (-1), transform.localScale.y, transform.localScale.z);
-
-	}
 		
 	void Jump () {
 		if (isJumping) {
-				rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
+			rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
+			if (!doubleJumped)
+				SoundManager.instance.PlaySingle (jumpSound);
 			isJumping = false;
 		}
 	}
@@ -183,8 +200,6 @@ public class Player : MonoBehaviour {
 	}
 
 	void TriggerWalkSounds () {
-		float randomClipChooser = Random.Range (0,10);
-
 		if (moving && grounded) {
 			SoundManager.instance.RandomizeSfx (walking1, walking2);
 		}
@@ -192,13 +207,14 @@ public class Player : MonoBehaviour {
 	}
 
 	void TriggerMoveAnimation () {
-		Animator anim = GetComponent<Animator>();
 		anim.SetTrigger ("moving");
 	}
 
 	void OnCollisionStay2D (Collision2D col) {
 		
 		if (col.collider.tag == "Enemy") {
+
+			SoundManager.instance.RandomizeSfx (hitSound1,hitSound2,hitSound3,hitSound4);
 
 			if (currentHp <= maximumHp && currentHp > 0) {
 				currentHp--;
@@ -210,6 +226,7 @@ public class Player : MonoBehaviour {
 			//Debug.Log ("Collision with an enemy.");
 			collisionTime = Time.time;
 			invulnerable = true;
+			anim.SetBool ("onHit",true);
 			Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"),LayerMask.NameToLayer ("Enemy"),invulnerable);
 			//Триггер для анимации мигания - здесь!
 
