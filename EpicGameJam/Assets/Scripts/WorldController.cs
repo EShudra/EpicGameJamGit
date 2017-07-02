@@ -28,6 +28,7 @@ public class WorldController : MonoBehaviour {
 	public int playerHpIncrement;//<- use to add max hp
 	public float playerJumpHeight;
 	public bool playerDoubleJump;
+	public int playerGrenadesCount;
 
 	//gun---------
 	public Sprite[] gunSprites;
@@ -35,7 +36,7 @@ public class WorldController : MonoBehaviour {
 	public float gunFireRate;
 	public float[] gunFireLinesAngle;
 	public int gunFireLinesCount;
-	public float[] gunFiveLines = new float[5];
+	public float[] gunFiveLines = new float[5]{0,0,0,0,0};
 	public float gunFireLinesDispersion;
 	public float gunAccuracyAngle;
 
@@ -74,11 +75,14 @@ public class WorldController : MonoBehaviour {
 		gameSettings.Add ("playerDoubleJump", playerDoubleJump.ToString());
 		gameSettings.Add ("playerJumpPower", playerJumpHeight.ToString());
 		gameSettings.Add ("playerHpIncrement", playerHpIncrement.ToString());
+		gameSettings.Add ("playerGrenadesCount", playerGrenadesCount.ToString());
+		 
 
 		//gun
 		gameSettings.Add ("gunFireRate", gunFireRate.ToString());
 		gameSettings.Add ("gunAccuracy", gunAccuracyAngle.ToString());
 		gameSettings.Add ("gunFireLinesAmount", gunFireLinesCount.ToString());
+
 		gameSettings.Add ("gunFireLineAngle1", gunFiveLines[0].ToString());
 		gameSettings.Add ("gunFireLineAngle2", gunFiveLines[1].ToString());
 		gameSettings.Add ("gunFireLineAngle3", gunFiveLines[2].ToString());
@@ -116,7 +120,7 @@ public class WorldController : MonoBehaviour {
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bullet"), LayerMask.NameToLayer ("Bullet"), true);
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bullet"), LayerMask.NameToLayer ("Player"), true);
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bomb"), LayerMask.NameToLayer ("Player"), true);
-
+		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Enemy"), LayerMask.NameToLayer ("ExitPoint"), true);
 		InitializeValue ();
 		}
 	
@@ -147,6 +151,8 @@ public class WorldController : MonoBehaviour {
 		playerJumpHeight = float.Parse (gameSettings ["playerJumpPower"]);
 
 		playerHpIncrement = int.Parse( gameSettings["playerHpIncrement"]);
+
+		playerGrenadesCount = int.Parse (gameSettings ["playerGrenadesCount"]);
 
 
 		//=====gun=============================
