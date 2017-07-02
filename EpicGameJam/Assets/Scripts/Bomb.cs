@@ -3,12 +3,14 @@ using System.Collections;
 
 public class Bomb : MonoBehaviour {
 
+	public GameObject explosionPrefab;
+	public Player player;
 	//bomb skin
 	public Sprite skin;
 	//bomb explosion radius
 	public float explosionRadius;
 	//power of the throw
-	public Vector3 throwPower;
+	public float throwPower;
 	//bomb damage
 	public float damage;
 	//birth time of the bomb
@@ -23,13 +25,19 @@ public class Bomb : MonoBehaviour {
 	private Rigidbody2D rb2D;
 
 	void Start () {
+		player = FindObjectOfType<Player> () as Player;
 		birthTime = Time.time;
 		rb2D = GetComponent<Rigidbody2D> ();
-		playerFacingRight = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().facingRight;
+		playerFacingRight = FindObjectOfType<Player>().facingRight;
+		Debug.Log (transform.lossyScale.x / Mathf.Abs (transform.lossyScale.x));
+
+		playerFacingRight = player.facingRight;
+
 		if (playerFacingRight)
-			rb2D.AddForce (new Vector3(200f,200f,0));
+			rb2D.AddForce (new Vector3(350f,350f,0)*throwPower);
 		else
-			rb2D.AddForce (new Vector3(-200f,200f,0));
+			rb2D.AddForce (new Vector3(-350f,350f,0)*throwPower);
+		
 	}
 
 	void FixedUpdate () {
@@ -47,16 +55,8 @@ public class Bomb : MonoBehaviour {
 	}
 
 	void Explode () {
-		//explosion animation
-				
-		/*
-		destroyableList = GameObject.FindObjectsOfType<IDestroyableObject> ();
-		foreach (IDestroyableObject dobj in destroyableList) {
-			dobj.GetDamage (damage);
-		}
-		*/
-
 		this.enabled = false;
+		Instantiate (explosionPrefab, this.transform.position, Quaternion.identity);
 		Destroy (this.gameObject);
 	}
 }
