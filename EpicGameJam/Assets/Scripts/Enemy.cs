@@ -12,16 +12,9 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 	//enemy damage
 	[HideInInspector]public float enemyDamage;
 
-<<<<<<< HEAD
-
-	public AudioClip kittenDeath;
-	public string enemyType;
-
-=======
 	public AudioClip behemothOnHit;
 	public AudioClip kittenDeath;
 	public string enemyType;
->>>>>>> master
 
 	//movement vector
 	public Vector3 moveVector = new Vector3 ( 1, 0, 0);
@@ -50,10 +43,7 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 
 	public void GetDamage (float damage){
 		enemyHp -= damage;
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 		if (enemyHp <= 0) {
 			if (this.enemyType == "kitten")
 				StartCoroutine (playKittemSound ());

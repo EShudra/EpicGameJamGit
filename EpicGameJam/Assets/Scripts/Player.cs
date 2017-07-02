@@ -20,10 +20,7 @@ public class Player : MonoBehaviour, IWorldObject {
 
 	private float lastWalkingSoundTime;
 
-<<<<<<< HEAD
-=======
 	public bool doubleJumpAbility = true;
->>>>>>> master
 	public bool moving = false;
 	//player speed
 	public float speed = 10f;
@@ -202,13 +199,8 @@ public class Player : MonoBehaviour, IWorldObject {
 		
 	void Jump () {
 		if (isJumping) {
-<<<<<<< HEAD
-			rb2D.Sleep ();
-			rb2D.WakeUp ();
-=======
 			rb2D.Sleep();
 			rb2D.WakeUp(); 
->>>>>>> master
 			rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
 			if (!doubleJumped)
 				SoundManager.instance.PlayPlayerSound (jumpSound);
@@ -302,20 +294,10 @@ public class Player : MonoBehaviour, IWorldObject {
 		wCont.playerHpIncrement = 0;
 		jumpHeight = wCont.playerJumpHeight;
 		speed = wCont.playerSpeed;
-<<<<<<< HEAD
-		bombCurrentAmount = wCont.playerGrenadesCount;
-		bombMaxCount = bombCurrentAmount;
-
-	}
-
-
-
-=======
 
 		bombMaxCount += wCont.playerGrenadesCountMaxInc;
 		wCont.playerGrenadesCountMaxInc = 0;
 		bombCurrentAmount = bombMaxCount;
-
 	}
 
 	IEnumerator BloodVfx(float delay){
@@ -335,6 +317,4 @@ public class Player : MonoBehaviour, IWorldObject {
 			yield return null;
 		}
 	}
-		
->>>>>>> master
 }

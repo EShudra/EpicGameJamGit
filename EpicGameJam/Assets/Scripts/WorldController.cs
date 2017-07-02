@@ -29,11 +29,8 @@ public class WorldController : MonoBehaviour {
 	public float playerJumpHeight;
 	public bool playerDoubleJump;
 	public int playerGrenadesCount;
-<<<<<<< HEAD
-=======
 	public int playerGrenadesCountMaxInc;
 	public int playerGrenadesCountMax;
->>>>>>> master
 
 	//gun---------
 	public Sprite[] gunSprites;
@@ -41,13 +38,8 @@ public class WorldController : MonoBehaviour {
 	public float gunFireRate;
 	public float[] gunFireLinesAngle;
 	public int gunFireLinesCount;
-<<<<<<< HEAD
-	public float[] gunFiveLines = new float[5]{0,0,0,0,0};
-=======
-
 	public float[] gunFiveLines = new float[5]{0,0,0,0,0};
 
->>>>>>> master
 	public float gunFireLinesDispersion;
 	public float gunAccuracyAngle;
 
@@ -90,22 +82,14 @@ public class WorldController : MonoBehaviour {
 		gameSettings.Add ("playerJumpPower", playerJumpHeight.ToString());
 		gameSettings.Add ("playerHpIncrement", playerHpIncrement.ToString());
 		gameSettings.Add ("playerGrenadesCount", playerGrenadesCount.ToString());
-<<<<<<< HEAD
-
-=======
 		gameSettings.Add ("playerGrenadesCountMaxInc", playerGrenadesCountMaxInc.ToString());
 		gameSettings.Add ("playerGrenadesCountMax", playerGrenadesCountMax.ToString());
->>>>>>> master
 
 		//gun
 		gameSettings.Add ("gunFireRate", gunFireRate.ToString());
 		gameSettings.Add ("gunAccuracy", gunAccuracyAngle.ToString());
 		gameSettings.Add ("gunFireLinesAmount", gunFireLinesCount.ToString());
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 		gameSettings.Add ("gunFireLineAngle1", gunFiveLines[0].ToString());
 		gameSettings.Add ("gunFireLineAngle2", gunFiveLines[1].ToString());
 		gameSettings.Add ("gunFireLineAngle3", gunFiveLines[2].ToString());
@@ -143,11 +127,8 @@ public class WorldController : MonoBehaviour {
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bullet"), LayerMask.NameToLayer ("Bullet"), true);
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bullet"), LayerMask.NameToLayer ("Player"), true);
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bomb"), LayerMask.NameToLayer ("Player"), true);
-<<<<<<< HEAD
-=======
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bomb"), LayerMask.NameToLayer ("Bullet"), true);
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bomb"), LayerMask.NameToLayer ("Bomb"), true);
->>>>>>> master
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Enemy"), LayerMask.NameToLayer ("ExitPoint"), true);
 
 		InitializeValue ();
@@ -183,13 +164,10 @@ public class WorldController : MonoBehaviour {
 
 		playerGrenadesCount = int.Parse (gameSettings ["playerGrenadesCount"]);
 
-<<<<<<< HEAD
-
-=======
 		playerGrenadesCountMaxInc = int.Parse (gameSettings ["playerGrenadesCountMaxInc"]);
 
 		playerGrenadesCountMax = int.Parse (gameSettings ["playerGrenadesCountMax"]);
->>>>>>> master
+
 
 		//=====gun=============================
 
