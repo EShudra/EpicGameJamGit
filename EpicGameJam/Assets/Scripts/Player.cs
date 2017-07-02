@@ -15,10 +15,6 @@ public class Player : MonoBehaviour, IWorldObject {
 	public AudioClip hitSound4;
 
 	public bool doubleJumpAbility = true;
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 	public bool moving = false;
 	//player speed
 	public float speed = 10f;
@@ -196,13 +192,8 @@ public class Player : MonoBehaviour, IWorldObject {
 		
 	void Jump () {
 		if (isJumping) {
-<<<<<<< HEAD
 			rb2D.Sleep ();
 			rb2D.WakeUp ();
-=======
-			rb2D.Sleep();
-			rb2D.WakeUp();
->>>>>>> master
 			rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
 			if (!doubleJumped)
 				SoundManager.instance.PlaySingle (jumpSound);
@@ -288,11 +279,6 @@ public class Player : MonoBehaviour, IWorldObject {
 		wCont.playerHpIncrement = 0;
 		jumpHeight = wCont.playerJumpHeight;
 		speed = wCont.playerSpeed;
-<<<<<<< HEAD
-		bombCurrentAmount = wCont.playerGrenadesCount;
-		bombMaxCount = bombCurrentAmount;
-	}
-=======
 
 		bombMaxCount = wCont.playerGrenadesCountMax;
 		if (wCont.playerGrenadesCount <= bombMaxCount) {
@@ -301,6 +287,4 @@ public class Player : MonoBehaviour, IWorldObject {
 			bombCurrentAmount = bombMaxCount;
 		}
 	}
-
->>>>>>> master
 }
