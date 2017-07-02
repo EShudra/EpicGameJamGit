@@ -1,8 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/DoreimonScene.unity
-=======
-- path: Assets/EShudraScene.unity
->>>>>>> master
+- path: Assets/AnglainScene.unity
   isLoaded: 1
   isActive: 1
