@@ -15,20 +15,6 @@ public class Player : MonoBehaviour, IWorldObject {
 	public AudioClip hitSound4;
 
 	public bool doubleJumpAbility = true;
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	public bool doubleJumpAbility = true;
->>>>>>> master
-=======
-	public bool doubleJumpAbility = true;
->>>>>>> master
-=======
-	public bool doubleJumpAbility = true;
->>>>>>> master
-
 	public bool moving = false;
 	//player speed
 	public float speed = 10f;
@@ -95,10 +81,10 @@ public class Player : MonoBehaviour, IWorldObject {
 		invulnerable = false;
 		anim = GetComponent<Animator> ();
 
-		if (bombMaxCount > maximumGrenadesToSpawn)
+		/*if (bombMaxCount > maximumGrenadesToSpawn)
 			bombMaxCount = maximumGrenadesToSpawn;
 		if (maximumHp > maximumHeartsToSpawn)
-			maximumHp = maximumHeartsToSpawn;
+			maximumHp = maximumHeartsToSpawn;*/
 
 		//GenerateBombsAndHearts ();
 	}
@@ -206,27 +192,11 @@ public class Player : MonoBehaviour, IWorldObject {
 		
 	void Jump () {
 		if (isJumping) {
-<<<<<<< HEAD
 			rb2D.Sleep();
 			rb2D.WakeUp();
-			//rb2D.a
-				rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-			rb2D.Sleep ();
-			rb2D.WakeUp ();
-=======
->>>>>>> master
-=======
->>>>>>> master
-=======
->>>>>>> master
 			rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
 			if (!doubleJumped)
 				SoundManager.instance.PlaySingle (jumpSound);
->>>>>>> master
 			isJumping = false;
 		}
 	}
@@ -299,16 +269,6 @@ public class Player : MonoBehaviour, IWorldObject {
 			Destroy (this.gameObject);
 		}
 	}
-	public void InitParameters(){
-		doubleJumpAbility = wCont.playerDoubleJump;
-		maximumHp += wCont.playerHpIncrement;
-		if (maximumHp <= 0) {
-			maximumHp = 1;
-		}
-		wCont.playerHpIncrement = 0;
-		jumpHeight = wCont.playerJumpHeight;
-		speed = wCont.playerSpeed;
-	}
 
 	public void InitParameters(){
 		doubleJumpAbility = wCont.playerDoubleJump;
@@ -319,20 +279,13 @@ public class Player : MonoBehaviour, IWorldObject {
 		wCont.playerHpIncrement = 0;
 		jumpHeight = wCont.playerJumpHeight;
 		speed = wCont.playerSpeed;
-		bombCurrentAmount = wCont.playerGrenadesCount;
-		bombMaxCount = bombCurrentAmount;
-=======
-=======
-	}
 
-	public void InitParameters(){
-		doubleJumpAbility = wCont.playerDoubleJump;
-		maximumHp += wCont.playerHpIncrement;
-		if (maximumHp <= 0) {
-			maximumHp = 1;
+		bombMaxCount = wCont.playerGrenadesCountMax;
+		if (wCont.playerGrenadesCount <= bombMaxCount) {
+			bombCurrentAmount = wCont.playerGrenadesCount;
+		} else {
+			bombCurrentAmount = bombMaxCount;
 		}
-		wCont.playerHpIncrement = 0;
-		jumpHeight = wCont.playerJumpHeight;
-		speed = wCont.playerSpeed;
 	}
+		
 }
