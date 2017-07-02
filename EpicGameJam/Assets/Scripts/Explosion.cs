@@ -13,21 +13,18 @@ public class Explosion : MonoBehaviour, IWorldObject {
 	private Animator anim;
 
 	void Start () {
-<<<<<<< HEAD
 		wCont = GameObject.FindObjectOfType<WorldController> ();
 		InitParameters ();
 
 		this.transform.localScale = new Vector3 (transform.localScale.x * explosionRadiusMul,
 			transform.localScale.y * explosionRadiusMul,
 			transform.localScale.z * explosionRadiusMul);
-		
 		GetComponent<Animator>().Play ("explosion4");
-=======
+
 		anim = GetComponent<Animator> ();
 		anim.Play ("explosion4");
 		GameObject.FindObjectOfType<CameraBehaviour>().shakeScreen ();
 		SoundManager.instance.PlaySingle (explosionSound);
->>>>>>> master
 
 		RaycastHit2D[] hits = Physics2D.CircleCastAll (this.transform.position, explosionRadius*explosionRadiusMul, new Vector3(0,0,1));
 		Debug.Log ("hits.Length: "+hits.Length);

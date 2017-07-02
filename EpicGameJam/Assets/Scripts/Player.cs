@@ -15,26 +15,7 @@ public class Player : MonoBehaviour, IWorldObject {
 	public AudioClip hitSound4;
 
 	public bool doubleJumpAbility = true;
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	public bool doubleJumpAbility = true;
->>>>>>> master
-=======
-	public bool doubleJumpAbility = true;
->>>>>>> master
-=======
-	public bool doubleJumpAbility = true;
->>>>>>> master
-
->>>>>>> master
->>>>>>> master
 	public bool moving = false;
 	//player speed
 	public float speed = 10f;
@@ -299,18 +280,6 @@ public class Player : MonoBehaviour, IWorldObject {
 		wCont.playerHpIncrement = 0;
 		jumpHeight = wCont.playerJumpHeight;
 		speed = wCont.playerSpeed;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-		bombCurrentAmount = wCont.playerGrenadesCount;
-		bombMaxCount = bombCurrentAmount;
-=======
-=======
->>>>>>> master
-	}
-<<<<<<< HEAD
-=======
->>>>>>> master
 
 		bombMaxCount = wCont.playerGrenadesCountMax;
 		if (wCont.playerGrenadesCount <= bombMaxCount) {
@@ -319,11 +288,5 @@ public class Player : MonoBehaviour, IWorldObject {
 			bombCurrentAmount = bombMaxCount;
 		}
 	}
-<<<<<<< HEAD
-		
-=======
 
-
->>>>>>> master
->>>>>>> master
 }
