@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour, IDestroyableObject {
 
 	//speed of enemy movement
 	public float enemySpeed;
@@ -10,16 +10,21 @@ public class Enemy : MonoBehaviour {
 	public float enemyHp;
 
 	//enemy damage
-	public float enemyDamage;
+	[HideInInspector]public float enemyDamage;
+
+	public AudioClip kittenDeath;
+	public string enemyType;
 
 	//movement vector
 	public Vector3 moveVector = new Vector3 ( 1, 0, 0);
 
 	BoxCollider2D thisCollider;
+	private Animator anim;
 
 	// Use this for initialization
 	void Start () {
 		thisCollider = this.GetComponent<BoxCollider2D> ();
+		anim = GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
@@ -34,16 +39,21 @@ public class Enemy : MonoBehaviour {
 		this.transform.Translate (moveVector * enemySpeed * Time.deltaTime);
 	}
 
-	void getDamage (float damage){
+	public void GetDamage (float damage){
 		enemyHp -= damage;
 		if (enemyHp < 0) {
-			Destroy (this.gameObject);
+			if (this.enemyType == "kitten")
+				SoundManager.instance.PlaySingle (kittenDeath);
+
+			Destroy (gameObject);
 		}
 	}
 
 	void OnCollisionStay2D(Collision2D coll){
 		if (coll.collider.tag == "Bullet"){
-			getDamage(coll.collider.gameObject.GetComponent<Bullet> ().damage);
+			GetDamage(coll.collider.gameObject.GetComponent<Bullet> ().damage);
+			anim.SetBool ("onHit", true);
+			anim.SetBool ("onHit", false);
 		}
 
 		//reverse scale if collidessmth exept player

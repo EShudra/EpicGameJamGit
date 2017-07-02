@@ -8,6 +8,15 @@ public class Player : MonoBehaviour, IWorldObject {
 
 	public AudioClip walking1;
 	public AudioClip walking2;
+	public AudioClip jumpSound;
+	public AudioClip hitSound1;
+	public AudioClip hitSound2;
+	public AudioClip hitSound3;
+	public AudioClip hitSound4;
+
+	public bool doubleJumpAbility = true;
+
+	public bool doubleJumpAbility = true;
 
 	public bool doubleJumpAbility = true;
 
@@ -65,6 +74,8 @@ public class Player : MonoBehaviour, IWorldObject {
 	public GameObject bombThrowablePrefab;
 	//bomb spawn point
 	public Transform bombSpawnPoint;
+	//animator
+	private Animator anim;
 
 	void Start () {
 		wCont = GameObject.FindObjectOfType<WorldController> ();
@@ -73,15 +84,17 @@ public class Player : MonoBehaviour, IWorldObject {
 
 		rb2D = GetComponent<Rigidbody2D> ();
 		invulnerable = false;
+		anim = GetComponent<Animator> ();
 
 		if (bombMaxCount > maximumGrenadesToSpawn)
 			bombMaxCount = maximumGrenadesToSpawn;
 		if (maximumHp > maximumHeartsToSpawn)
 			maximumHp = maximumHeartsToSpawn;
 
-		GenerateBombsAndHearts ();
+		//GenerateBombsAndHearts ();
 	}
 
+	/*
 	void GenerateBombsAndHearts () {
 		GameObject heartParent = GameObject.FindGameObjectWithTag ("HeartParent");
 		heartsOnBoard = new List<GameObject>[maximumHp];
@@ -109,6 +122,7 @@ public class Player : MonoBehaviour, IWorldObject {
 			Debug.Log ("Grenade created.");
 		}
 	}
+	*/
 
 	void Update () {
 		CheckMove ();
@@ -122,11 +136,18 @@ public class Player : MonoBehaviour, IWorldObject {
 		Move ();
 		Jump ();
 		Bomb (); 
+		MuteMusic ();
 
 		if (Time.time >= (collisionTime + invulnerabilityTime)) {
 			invulnerable = false;
+			anim.SetBool ("onHit",false);
 			Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"),LayerMask.NameToLayer ("Enemy"),invulnerable);
 		}
+	}
+
+	void MuteMusic () {
+		if (Input.GetKeyDown (KeyCode.M))
+			SoundManager.instance.musicSource.mute = !SoundManager.instance.musicSource.mute;
 	}
 
 	void CheckMove () {	
@@ -143,6 +164,16 @@ public class Player : MonoBehaviour, IWorldObject {
 		} else {
 			moving = false;
 		}
+	}
+
+	void Move () {
+		if (direction != new Vector3 (0, 0, 0))
+
+			transform.Translate (speed * direction * Time.deltaTime);
+
+		if ((facingRight && transform.localScale.x <= 0) || (!facingRight && transform.localScale.x >= 0))
+			transform.localScale = new Vector3 (transform.localScale.x * (-1), transform.localScale.y, transform.localScale.z);
+
 	}
 
 	void CheckJump () {
@@ -163,20 +194,12 @@ public class Player : MonoBehaviour, IWorldObject {
 			moving = true;
 		}
 	}
-
-	void Move () {
-		if (direction != new Vector3 (0, 0, 0))
-
-			transform.Translate (speed * direction * Time.deltaTime);
-
-		if ((facingRight && transform.localScale.x <= 0) || (!facingRight && transform.localScale.x >= 0))
-			transform.localScale = new Vector3 (transform.localScale.x * (-1), transform.localScale.y, transform.localScale.z);
-
-	}
 		
 	void Jump () {
 		if (isJumping) {
-				rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
+			rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
+			if (!doubleJumped)
+				SoundManager.instance.PlaySingle (jumpSound);
 			isJumping = false;
 		}
 	}
@@ -191,8 +214,6 @@ public class Player : MonoBehaviour, IWorldObject {
 	}
 
 	void TriggerWalkSounds () {
-		float randomClipChooser = Random.Range (0,10);
-
 		if (moving && grounded) {
 			SoundManager.instance.RandomizeSfx (walking1, walking2);
 		}
@@ -200,13 +221,14 @@ public class Player : MonoBehaviour, IWorldObject {
 	}
 
 	void TriggerMoveAnimation () {
-		Animator anim = GetComponent<Animator>();
 		anim.SetTrigger ("moving");
 	}
 
 	void OnCollisionStay2D (Collision2D col) {
 		
 		if (col.collider.tag == "Enemy") {
+
+			SoundManager.instance.RandomizeSfx (hitSound1,hitSound2,hitSound3,hitSound4);
 
 			if (currentHp <= maximumHp && currentHp > 0) {
 				currentHp--;
@@ -219,6 +241,7 @@ public class Player : MonoBehaviour, IWorldObject {
 			//Debug.Log ("Collision with an enemy.");
 			collisionTime = Time.time;
 			invulnerable = true;
+			anim.SetBool ("onHit",true);
 			Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"),LayerMask.NameToLayer ("Enemy"),invulnerable);
 			//Триггер для анимации мигания - здесь!
 
@@ -244,8 +267,32 @@ public class Player : MonoBehaviour, IWorldObject {
 
 	void Death () {
 		//death animation
-		if (this.gameObject != null)
-			Destroy(this.gameObject);
+		if (this.gameObject != null) {
+			anim.SetBool ("dead", true);
+			Destroy (this.gameObject);
+		}
+	}
+
+	public void InitParameters(){
+		doubleJumpAbility = wCont.playerDoubleJump;
+		maximumHp += wCont.playerHpIncrement;
+		if (maximumHp <= 0) {
+			maximumHp = 1;
+		}
+		wCont.playerHpIncrement = 0;
+		jumpHeight = wCont.playerJumpHeight;
+		speed = wCont.playerSpeed;
+	}
+
+	public void InitParameters(){
+		doubleJumpAbility = wCont.playerDoubleJump;
+		maximumHp += wCont.playerHpIncrement;
+		if (maximumHp <= 0) {
+			maximumHp = 1;
+		}
+		wCont.playerHpIncrement = 0;
+		jumpHeight = wCont.playerJumpHeight;
+		speed = wCont.playerSpeed;
 	}
 
 	public void InitParameters(){
