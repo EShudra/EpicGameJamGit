@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/AnglainScene.unity
+=======
+- path: Assets/EShudraScene.unity
+>>>>>>> master
   isLoaded: 1
   isActive: 1
