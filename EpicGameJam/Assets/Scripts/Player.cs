@@ -17,8 +17,11 @@ public class Player : MonoBehaviour, IWorldObject {
 	public bool doubleJumpAbility = true;
 
 	public bool doubleJumpAbility = true;
+<<<<<<< HEAD
 
 	public bool doubleJumpAbility = true;
+=======
+>>>>>>> master
 
 	public bool moving = false;
 	//player speed
@@ -293,6 +296,7 @@ public class Player : MonoBehaviour, IWorldObject {
 		wCont.playerHpIncrement = 0;
 		jumpHeight = wCont.playerJumpHeight;
 		speed = wCont.playerSpeed;
+<<<<<<< HEAD
 	}
 
 	public void InitParameters(){
@@ -304,5 +308,7 @@ public class Player : MonoBehaviour, IWorldObject {
 		wCont.playerHpIncrement = 0;
 		jumpHeight = wCont.playerJumpHeight;
 		speed = wCont.playerSpeed;
+=======
+>>>>>>> master
 	}
 }
