@@ -277,8 +277,11 @@ public class Player : MonoBehaviour, IWorldObject {
 		if (this.gameObject != null) {
 			anim.SetBool ("dead", true);
 			this.GetComponent<BoxCollider2D> ().enabled = false;
-			rb2D.AddForce(new Vector2(0,310f));
+			rb2D.Sleep();
+			rb2D.WakeUp();
+			rb2D.AddForce(new Vector2(0,300f));
 			rb2D.gravityScale = 1.5f;
+			speed = 0;
 			Destroy (this.gameObject, 2.2f);
 			StartCoroutine (BloodVfx (1));
 		}
@@ -305,14 +308,16 @@ public class Player : MonoBehaviour, IWorldObject {
 		float startTime = Time.time;
 		while ((Time.time - startTime) < delay){
 			Debug.Log(Time.time);
-			if (Random.value < 0.15f) {
+			float disp = 0.4f;
+			float freq = 0.3f;
+			if (Random.value < freq) {
 				Instantiate (bloodHitPrefab1,
-					transform.position + new Vector3((Random.value-1)*0.5f,(Random.value-1)*0.5f,0),
+					transform.position + new Vector3((Random.value-1)*disp,(Random.value-1)*disp,0),
 					Quaternion.identity);
 			}
-			if (Random.value < 0.15f) {
+			if (Random.value < freq) {
 				Instantiate (bloodHitPrefab2,
-					transform.position + new Vector3((Random.value-1)*0.5f,(Random.value-1)*0.5f,0),
+					transform.position + new Vector3((Random.value-1)*disp,(Random.value-1)*disp,0),
 					Quaternion.identity);
 			}
 			yield return null;
