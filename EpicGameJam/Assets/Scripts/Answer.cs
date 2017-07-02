@@ -24,7 +24,7 @@ public class Answer : MonoBehaviour {
 	public bool oneTimeUse;
 
 	//defines if answer is forbidden to use
-	public bool used;
+	bool used;
 
 	//DRAG & DROP obj here
 	public WorldController wcont;
@@ -32,13 +32,14 @@ public class Answer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		this.GetComponentInChildren<Text> ().text = answerText;
+		wcont = GameObject.FindObjectOfType<WorldController> ();
 	}
 	
 	public void OnClick(){
 		/*foreach (var item in settings) {
 			wcont.UpdateGameSetting (item.Key, item.Value);
 		}*/
-		for (int i = 0; (i < Mathf.FloorToInt (settingsArr.Length / 2));i += 2) {
+		for (int i = 0; (i < settingsArr.Length - 1);i += 2) {
 			wcont.UpdateGameSetting (settingsArr[i], settingsArr[i+1]);
 		}
 

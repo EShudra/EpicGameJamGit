@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpawnPoint : MonoBehaviour {
+public class SpawnPoint : MonoBehaviour, IWorldObject {
 
+	public WorldController wCont;
 	//how many enemies can spamn this point
 	public int maxEnemies;
+
+	//enemy hp mul
+	float hpMul = 1;
 
 	//cooldown of spawning in seconds
 	public float coolDown;
@@ -28,6 +32,8 @@ public class SpawnPoint : MonoBehaviour {
 	void Start () {
 		//init time when was created
 		birthTime = Time.time;
+		wCont = GameObject.FindObjectOfType<WorldController> ();
+		InitParameters ();
 	}
 	
 	// Update is called once per frame
@@ -37,6 +43,7 @@ public class SpawnPoint : MonoBehaviour {
 			this.enabled = false;
 		}
 		if (Time.time - birthTime > startDelay) {
+			this.gameObject.GetComponent<Animator> ().SetBool ("active", true);
 			if (Time.time - lastEnemySpawned > coolDown) {
 				SpawnEnemy ();
 				lastEnemySpawned = Time.time;
@@ -46,7 +53,22 @@ public class SpawnPoint : MonoBehaviour {
 
 	void SpawnEnemy(){
 		enemiesSpawned++;
-		Instantiate (enemyPrefab,this.transform.position,Quaternion.identity);
+		object o = Instantiate (enemyPrefab,this.transform.position,Quaternion.identity);
+		GameObject go = o as GameObject;
+		go.GetComponent<Enemy> ().enemyHp *= hpMul;
 	}
 
+	public void InitParameters (){
+		if (wCont.maxEnemies > 0) {
+			maxEnemies = wCont.maxEnemies;
+		}
+		maxEnemies *= Mathf.FloorToInt( wCont.maxEnemiesMul);
+		wCont.maxEnemiesMul =1;
+
+		coolDown *= wCont.spawnCooldownMul;
+		wCont.spawnCooldownMul = 1;
+
+		hpMul = wCont.enemyHpMul;
+
+	}
 }
