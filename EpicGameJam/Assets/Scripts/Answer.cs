@@ -22,6 +22,7 @@ public class Answer : MonoBehaviour {
 
 	//defines if answer can be used only one time
 	public bool oneTimeUse;
+	public bool oneTimeUseTag;
 
 	//defines if answer is forbidden to use
 	bool used;
@@ -31,7 +32,7 @@ public class Answer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		this.GetComponentInChildren<Text> ().text = answerText;
+		//this.GetComponentInChildren<Text> ().text = answerText;
 		wcont = GameObject.FindObjectOfType<WorldController> ();
 	}
 	
