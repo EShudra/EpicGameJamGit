@@ -10,7 +10,10 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 	public float enemyHp;
 
 	//enemy damage
-	public float enemyDamage;
+	[HideInInspector]public float enemyDamage;
+
+	public AudioClip kittenDeath;
+	public string enemyType;
 
 	public AudioClip kittenDeath;
 	public string enemyType;
@@ -41,7 +44,11 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 
 	public void GetDamage (float damage){
 		enemyHp -= damage;
+<<<<<<< HEAD
 		if (enemyHp <= 0) {
+=======
+		if (enemyHp < 0) {
+>>>>>>> master
 			if (this.enemyType == "kitten")
 				SoundManager.instance.PlaySingle (kittenDeath);
 
