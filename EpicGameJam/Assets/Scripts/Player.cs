@@ -176,6 +176,9 @@ public class Player : MonoBehaviour, IWorldObject {
 		
 	void Jump () {
 		if (isJumping) {
+			rb2D.Sleep();
+			rb2D.WakeUp();
+			//rb2D.a
 				rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
 			isJumping = false;
 		}
