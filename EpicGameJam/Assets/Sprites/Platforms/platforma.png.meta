@@ -1,7 +1,11 @@
 fileFormatVersion: 2
 guid: 95ac383f6c4e1de4ba267a7a7cc96fb5
 <<<<<<< HEAD
+<<<<<<< HEAD
 timeCreated: 1498966747
+=======
+timeCreated: 1498967039
+>>>>>>> master
 =======
 timeCreated: 1498967039
 >>>>>>> master
@@ -10,7 +14,10 @@ TextureImporter:
   fileIDToRecycleName:
     21300000: platforma_0
 <<<<<<< HEAD
+<<<<<<< HEAD
     21300002: platforma_1
+=======
+>>>>>>> master
 =======
 >>>>>>> master
   serializedVersion: 2
@@ -74,6 +81,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
     - serializedVersion: 2
       name: platforma_1
       rect:
@@ -87,6 +95,8 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
+=======
+>>>>>>> master
 =======
 >>>>>>> master
     outline: []
