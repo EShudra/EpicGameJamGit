@@ -16,6 +16,8 @@ public class Player : MonoBehaviour, IWorldObject {
 
 	public bool doubleJumpAbility = true;
 
+	public bool doubleJumpAbility = true;
+
 	public bool moving = false;
 	//player speed
 	public float speed = 10f;
@@ -267,6 +269,17 @@ public class Player : MonoBehaviour, IWorldObject {
 			anim.SetBool ("dead", true);
 			Destroy (this.gameObject);
 		}
+	}
+
+	public void InitParameters(){
+		doubleJumpAbility = wCont.playerDoubleJump;
+		maximumHp += wCont.playerHpIncrement;
+		if (maximumHp <= 0) {
+			maximumHp = 1;
+		}
+		wCont.playerHpIncrement = 0;
+		jumpHeight = wCont.playerJumpHeight;
+		speed = wCont.playerSpeed;
 	}
 
 	public void InitParameters(){
