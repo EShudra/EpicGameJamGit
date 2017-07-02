@@ -23,7 +23,6 @@ public class Explosion : MonoBehaviour, IWorldObject {
 
 		anim = GetComponent<Animator> ();
 		anim.Play ("explosion4");
-		GameObject.FindObjectOfType<CameraBehaviour>().shakeScreen ();
 		SoundManager.instance.PlaySingle (explosionSound);
 
 		RaycastHit2D[] hits = Physics2D.CircleCastAll (this.transform.position, explosionRadius*explosionRadiusMul, new Vector3(0,0,1));

@@ -4,6 +4,7 @@ using System.Collections;
 public class SpawnPoint : MonoBehaviour, IWorldObject {
 
 	public WorldController wCont;
+	public AudioClip behemothSpawn;
 	//how many enemies can spamn this point
 	public int maxEnemies;
 
@@ -56,6 +57,8 @@ public class SpawnPoint : MonoBehaviour, IWorldObject {
 		object o = Instantiate (enemyPrefab,this.transform.position,Quaternion.identity);
 		GameObject go = o as GameObject;
 		go.GetComponent<Enemy> ().enemyHp *= hpMul;
+		if (go.GetComponent<Enemy> ().enemyType == "behemoth")
+			SoundManager.instance.PlayEnemySound ();
 	}
 
 	public void InitParameters (){

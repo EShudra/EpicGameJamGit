@@ -18,8 +18,9 @@ public class Player : MonoBehaviour, IWorldObject {
 	public AudioClip hitSound3;
 	public AudioClip hitSound4;
 
-	public bool doubleJumpAbility = true;
+	private float lastWalkingSoundTime;
 
+	public bool doubleJumpAbility = true;
 	public bool moving = false;
 	//player speed
 	public float speed = 10f;
@@ -127,7 +128,12 @@ public class Player : MonoBehaviour, IWorldObject {
 	void Update () {
 		CheckMove ();
 		CheckJump ();
+<<<<<<< HEAD
 		//TriggerMoveAnimation ();
+=======
+		TriggerMoveAnimation ();
+		TriggerWalkSounds ();
+>>>>>>> master
 	}
 
 	void FixedUpdate () {
@@ -188,23 +194,26 @@ public class Player : MonoBehaviour, IWorldObject {
 
 		if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow)) && grounded) {
 			isJumping = true;
-			moving = true;
 		}
 
 		else if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow)) && !grounded && !doubleJumped && doubleJumpAbility) {
 			isJumping = true;
 			doubleJumped = true;
-			moving = true;
 		}
 	}
 		
 	void Jump () {
 		if (isJumping) {
+<<<<<<< HEAD
 			rb2D.Sleep();
 			rb2D.WakeUp(); 
+=======
+			rb2D.Sleep ();
+			rb2D.WakeUp ();
+>>>>>>> master
 			rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
 			if (!doubleJumped)
-				SoundManager.instance.PlaySingle (jumpSound);
+				SoundManager.instance.PlayPlayerSound (jumpSound);
 			isJumping = false;
 		}
 	}
@@ -219,10 +228,12 @@ public class Player : MonoBehaviour, IWorldObject {
 	}
 
 	void TriggerWalkSounds () {
-		if (moving && grounded) {
-			SoundManager.instance.RandomizeSfx (walking1, walking2);
+		float newWalkingSound = Time.time;
+
+		if (moving && grounded && ((lastWalkingSoundTime+0.5f)<newWalkingSound)) {
+			SoundManager.instance.PlayPlayerSound (walking1, walking2);
+			lastWalkingSoundTime = Time.time;
 		}
-			
 	}
 
 	void TriggerMoveAnimation (bool state) {
@@ -234,7 +245,7 @@ public class Player : MonoBehaviour, IWorldObject {
 		
 		if (col.collider.tag == "Enemy") {
 
-			SoundManager.instance.RandomizeSfx (hitSound1,hitSound2,hitSound3,hitSound4);
+			SoundManager.instance.PlayPlayerSound (hitSound1,hitSound2,hitSound3,hitSound4);
 
 			if (currentHp <= maximumHp && currentHp > 0) {
 				currentHp--;
@@ -274,12 +285,17 @@ public class Player : MonoBehaviour, IWorldObject {
 	void Death () {
 		//death animation
 		if (this.gameObject != null) {
+<<<<<<< HEAD
 			anim.SetBool ("dead", true);
 			this.GetComponent<BoxCollider2D> ().enabled = false;
 			rb2D.AddForce(new Vector2(0,310f));
 			rb2D.gravityScale = 1.5f;
 			Destroy (this.gameObject, 2.2f);
 			StartCoroutine (BloodVfx (1));
+=======
+			anim.SetTrigger("dead");
+			Destroy (this.gameObject);
+>>>>>>> master
 		}
 	}
 
@@ -301,6 +317,7 @@ public class Player : MonoBehaviour, IWorldObject {
 			bombCurrentAmount = bombMaxCount;
 		}
 	}
+<<<<<<< HEAD
 
 	IEnumerator BloodVfx(float delay){
 		float startTime = Time.time;
@@ -320,4 +337,6 @@ public class Player : MonoBehaviour, IWorldObject {
 		}
 	}
 
+=======
+>>>>>>> master
 }
