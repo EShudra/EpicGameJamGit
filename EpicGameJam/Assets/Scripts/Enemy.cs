@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 		if (enemyHp <= 0) {
 			if (this.enemyType == "kitten")
 				SoundManager.instance.PlaySingle (kittenDeath);
-
+			anim.SetTrigger ("dead");
 			Destroy (gameObject);
 		}
 	}
@@ -54,7 +54,6 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 		if (coll.collider.tag == "Bullet"){
 			GetDamage(coll.collider.gameObject.GetComponent<Bullet> ().damage);
 			anim.SetBool ("onHit", true);
-			anim.SetBool ("onHit", false);
 		}
 
 		//reverse scale if collidessmth exept player
