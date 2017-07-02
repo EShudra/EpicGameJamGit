@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bomb : MonoBehaviour {
+public class Bomb : MonoBehaviour, IWorldObject {
+
+	public WorldController wCont;
+
+	public Vector3 throwForce;
 
 	public GameObject explosionPrefab;
 	public Player player;
@@ -26,9 +30,16 @@ public class Bomb : MonoBehaviour {
 
 	void Start () {
 		player = FindObjectOfType<Player> () as Player;
+		foreach (var item in GameObject.FindObjectsOfType<Player>()) {
+			if (item.gameObject.active == true) {
+				player = item;
+			}
+		}
+		wCont = GameObject.FindObjectOfType<WorldController> ();
+		InitParameters ();
 		birthTime = Time.time;
 		rb2D = GetComponent<Rigidbody2D> ();
-		playerFacingRight = FindObjectOfType<Player>().facingRight;
+		playerFacingRight = player.facingRight;
 		Debug.Log (transform.lossyScale.x / Mathf.Abs (transform.lossyScale.x));
 
 		playerFacingRight = player.facingRight;
@@ -58,5 +69,8 @@ public class Bomb : MonoBehaviour {
 		this.enabled = false;
 		Instantiate (explosionPrefab, this.transform.position, Quaternion.identity);
 		Destroy (this.gameObject);
+	}
+
+	public void InitParameters (){
 	}
 }
