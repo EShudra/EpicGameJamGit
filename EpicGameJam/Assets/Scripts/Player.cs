@@ -6,6 +6,10 @@ public class Player : MonoBehaviour, IWorldObject {
 
 	public WorldController wCont;
 
+	//blood vfx
+	public GameObject bloodHitPrefab1;
+	public GameObject bloodHitPrefab2;
+
 	public AudioClip walking1;
 	public AudioClip walking2;
 	public AudioClip jumpSound;
@@ -123,7 +127,7 @@ public class Player : MonoBehaviour, IWorldObject {
 	void Update () {
 		CheckMove ();
 		CheckJump ();
-		TriggerMoveAnimation ();
+		//TriggerMoveAnimation ();
 	}
 
 	void FixedUpdate () {
@@ -153,12 +157,15 @@ public class Player : MonoBehaviour, IWorldObject {
 			direction += Vector3.right;
 			facingRight = true;
 			moving = true;
+			TriggerMoveAnimation (moving);
 		} else if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow)) {
 			direction += Vector3.left;
 			facingRight = false;
 			moving = true;
+			TriggerMoveAnimation (moving);
 		} else {
 			moving = false;
+			TriggerMoveAnimation (moving);
 		}
 	}
 
@@ -194,7 +201,7 @@ public class Player : MonoBehaviour, IWorldObject {
 	void Jump () {
 		if (isJumping) {
 			rb2D.Sleep();
-			rb2D.WakeUp();
+			rb2D.WakeUp(); 
 			rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
 			if (!doubleJumped)
 				SoundManager.instance.PlaySingle (jumpSound);
@@ -203,8 +210,8 @@ public class Player : MonoBehaviour, IWorldObject {
 	}
 
 	void Bomb () {
-		if (Input.GetKeyDown (KeyCode.Q) && bombCurrentAmount != 0) {
-			Debug.Log ("Bomb has been thrown");
+		if (Input.GetKeyDown (KeyCode.Q) && (bombCurrentAmount != 0)) {
+			//Debug.Log ("Bomb has been thrown");
 			if (bombCurrentAmount <= bombMaxCount && bombCurrentAmount > 0)
 				bombCurrentAmount--;
 			Instantiate (bombThrowablePrefab,this.bombSpawnPoint.position, Quaternion.identity);
@@ -218,8 +225,9 @@ public class Player : MonoBehaviour, IWorldObject {
 			
 	}
 
-	void TriggerMoveAnimation () {
-		anim.SetTrigger ("moving");
+	void TriggerMoveAnimation (bool state) {
+		//anim.SetTrigger ("moving");
+		anim.SetBool("moving",state);
 	}
 
 	void OnCollisionStay2D (Collision2D col) {
@@ -267,12 +275,17 @@ public class Player : MonoBehaviour, IWorldObject {
 		//death animation
 		if (this.gameObject != null) {
 			anim.SetBool ("dead", true);
-			Destroy (this.gameObject);
+			this.GetComponent<BoxCollider2D> ().enabled = false;
+			rb2D.AddForce(new Vector2(0,310f));
+			rb2D.gravityScale = 1.5f;
+			Destroy (this.gameObject, 2.2f);
+			StartCoroutine (BloodVfx (1));
 		}
 	}
 
 	public void InitParameters(){
 		doubleJumpAbility = wCont.playerDoubleJump;
+		maximumHp = wCont.playerMaxHp;
 		maximumHp += wCont.playerHpIncrement;
 		if (maximumHp <= 0) {
 			maximumHp = 1;
@@ -286,6 +299,24 @@ public class Player : MonoBehaviour, IWorldObject {
 			bombCurrentAmount = wCont.playerGrenadesCount;
 		} else {
 			bombCurrentAmount = bombMaxCount;
+		}
+	}
+
+	IEnumerator BloodVfx(float delay){
+		float startTime = Time.time;
+		while ((Time.time - startTime) < delay){
+			Debug.Log(Time.time);
+			if (Random.value < 0.15f) {
+				Instantiate (bloodHitPrefab1,
+					transform.position + new Vector3((Random.value-1)*0.5f,(Random.value-1)*0.5f,0),
+					Quaternion.identity);
+			}
+			if (Random.value < 0.15f) {
+				Instantiate (bloodHitPrefab2,
+					transform.position + new Vector3((Random.value-1)*0.5f,(Random.value-1)*0.5f,0),
+					Quaternion.identity);
+			}
+			yield return null;
 		}
 	}
 

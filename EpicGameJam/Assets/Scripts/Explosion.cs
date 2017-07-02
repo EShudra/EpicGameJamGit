@@ -32,6 +32,7 @@ public class Explosion : MonoBehaviour, IWorldObject {
 		foreach (RaycastHit2D obj in hits) {
 			if (obj.transform.tag == "Enemy") {
 				obj.transform.gameObject.GetComponent<Enemy>().GetDamage (explosionDamage);
+				obj.transform.gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0,170f));
 			}
 				
 		}
