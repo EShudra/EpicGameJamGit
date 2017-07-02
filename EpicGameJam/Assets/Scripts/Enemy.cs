@@ -14,15 +14,6 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 
 	public AudioClip kittenDeath;
 	public string enemyType;
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-	public AudioClip kittenDeath;
-	public string enemyType;
-=======
->>>>>>> master
-=======
->>>>>>> master
 
 	//movement vector
 	public Vector3 moveVector = new Vector3 ( 1, 0, 0);
@@ -50,17 +41,8 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 
 	public void GetDamage (float damage){
 		enemyHp -= damage;
-<<<<<<< HEAD
+
 		if (enemyHp <= 0) {
-=======
-		if (enemyHp < 0) {
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> master
-=======
->>>>>>> master
 			if (this.enemyType == "kitten")
 				SoundManager.instance.PlaySingle (kittenDeath);
 			anim.SetTrigger ("dead");
