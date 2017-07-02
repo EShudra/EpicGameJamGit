@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
 
@@ -10,18 +11,30 @@ public class Player : MonoBehaviour {
 	//player sprite
 	public Sprite skin;
 	//current and max hp
-	public float currentHp;
-	public float maximumHp;
-	//max bomb quantity
-	public int bombMaxCount;
-	//bomb current amount
-	public int bombCurrentAmount;
+	public int currentHp = 2;
+	public int maximumHp = 2;
+	//max bomb quantity and current bomb amount
+	public int bombMaxCount = 6;
+	public int bombCurrentAmount = 6;
 	//bomb accuracy
 	public float bombAccuracy;
 	//number of bombs to instantiate per throw
 	public int bombsPerThrow;
 	//bomb accuracy angle
 	public float bombAngle;
+
+	//all these are the fileds that regulate heart and grenades spawning on the UI
+	public GameObject heartPrefab;
+	private List<GameObject>[] heartsOnBoard;
+	public List<GameObject> heartPlaceholders = new List<GameObject>();
+	public Transform firstHeartPosition;
+	public int maximumHeartsToSpawn = 10;
+	public GameObject grenadePrefab;
+	private List<GameObject>[] grenadesOnBoard;
+	public List<GameObject> grenadePlaceholders = new List<GameObject>();
+	public Transform firstGrenadePosition;
+	public int maximumGrenadesToSpawn = 10;
+
 
 	[HideInInspector] public float jumpForce = 1000f;
 	public Transform groundCheck;
@@ -40,14 +53,49 @@ public class Player : MonoBehaviour {
 	public float[] bombLinesAngle;
 	//bombs trajectory dispersion
 	public float bombLinesDispersionAngle;
-	//bullet prefab to spawn
-	public GameObject bombPrefab;
+	//throwable bomb prefab to spawn
+	public GameObject bombThrowablePrefab;
 	//bomb spawn point
 	public Transform bombSpawnPoint;
 
 	void Start () {
 		rb2D = GetComponent<Rigidbody2D> ();
 		invulnerable = false;
+
+		if (bombMaxCount > maximumGrenadesToSpawn)
+			bombMaxCount = maximumGrenadesToSpawn;
+		if (maximumHp > maximumHeartsToSpawn)
+			maximumHp = maximumHeartsToSpawn;
+
+		GenerateBombsAndHearts ();
+	}
+
+	void GenerateBombsAndHearts () {
+		GameObject heartParent = GameObject.FindGameObjectWithTag ("HeartParent");
+		heartsOnBoard = new List<GameObject>[maximumHp];
+
+		for (int i = 0; i < heartsOnBoard.Length; i++) {
+			object o = heartsOnBoard.GetValue (i);
+			GameObject obj = o as GameObject;
+			obj = Instantiate (heartPrefab, heartParent.transform) as GameObject;
+			obj.transform.position = (heartPlaceholders[i] as GameObject).transform.position;
+			obj.transform.localScale = heartPrefab.transform.localScale;
+			obj.SetActive (true);
+			Debug.Log ("Heart created.");
+		}
+
+		GameObject bombParent = GameObject.FindGameObjectWithTag ("GrenadeParent");
+		grenadesOnBoard = new List<GameObject>[bombMaxCount];
+
+		for (int i = 0; i < grenadesOnBoard.Length; i++) {
+			object o = grenadesOnBoard.GetValue (i);
+			GameObject obj = o as GameObject;
+			obj = Instantiate (grenadePrefab, bombParent.transform) as GameObject;
+			obj.transform.position = (grenadePlaceholders[i] as GameObject).transform.position;
+			obj.transform.localScale = grenadePrefab.transform.localScale;
+			obj.SetActive (true);
+			Debug.Log ("Grenade created.");
+		}
 	}
 
 	void Update () {
@@ -108,23 +156,32 @@ public class Player : MonoBehaviour {
 		
 	void Jump () {
 		if (isJumping) {
-			rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
+				rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
 			isJumping = false;
 		}
 	}
 
 	void Bomb () {
-		if (Input.GetKeyDown (KeyCode.Z)) {
+		if (Input.GetKeyDown (KeyCode.Q) && bombCurrentAmount != 0) {
 			Debug.Log ("Bomb has been thrown");
-			Instantiate (bombPrefab,this.bombSpawnPoint.position, Quaternion.identity);
+			if (bombCurrentAmount <= bombMaxCount && bombCurrentAmount > 0)
+				bombCurrentAmount--;
+			Instantiate (bombThrowablePrefab,this.bombSpawnPoint.position, Quaternion.identity);
 		}
 	}
 
 	void OnCollisionStay2D (Collision2D col) {
-		Debug.Log ("Col");
-		//if (col.collider.tag == "Enemy" && !invulnerable) {
+		
 		if (col.collider.tag == "Enemy") {
-			Debug.Log ("Collision with an enemy.");
+
+			if (currentHp <= maximumHp && currentHp > 0) {
+				currentHp--;
+				RemoveHeart ();
+				if (currentHp == 0)
+					Death ();
+			}
+
+			//Debug.Log ("Collision with an enemy.");
 			collisionTime = Time.time;
 			invulnerable = true;
 			Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"),LayerMask.NameToLayer ("Enemy"),invulnerable);
@@ -137,6 +194,22 @@ public class Player : MonoBehaviour {
 			}
 		}
 	}
-		
 
+	void RemoveHeart () {
+		
+		/*
+		GameObject[] heartComponents = obj.GetComponentsInChildren<GameObject>();
+		foreach (GameObject comp in heartComponents) {
+			if (comp.tag == "FullHeart") {
+				comp.SetActive (false);
+				break;
+			}
+		}*/
+	}
+
+	void Death () {
+		//death animation
+		if (this.gameObject != null)
+			Destroy(this.gameObject);
+	}
 }
