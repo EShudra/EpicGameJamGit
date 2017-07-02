@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour, IDestroyableObject {
 
 	//speed of enemy movement
 	public float enemySpeed;
@@ -10,16 +10,30 @@ public class Enemy : MonoBehaviour {
 	public float enemyHp;
 
 	//enemy damage
-	public float enemyDamage;
+	[HideInInspector]public float enemyDamage;
+
+	public AudioClip kittenDeath;
+	public string enemyType;
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+	public AudioClip kittenDeath;
+	public string enemyType;
+=======
+>>>>>>> master
+=======
+>>>>>>> master
 
 	//movement vector
 	public Vector3 moveVector = new Vector3 ( 1, 0, 0);
 
 	BoxCollider2D thisCollider;
+	private Animator anim;
 
 	// Use this for initialization
 	void Start () {
 		thisCollider = this.GetComponent<BoxCollider2D> ();
+		anim = GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
@@ -34,20 +48,34 @@ public class Enemy : MonoBehaviour {
 		this.transform.Translate (moveVector * enemySpeed * Time.deltaTime);
 	}
 
-	void getDamage (float damage){
+	public void GetDamage (float damage){
 		enemyHp -= damage;
+<<<<<<< HEAD
+		if (enemyHp <= 0) {
+=======
 		if (enemyHp < 0) {
-			Destroy (this.gameObject);
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> master
+=======
+>>>>>>> master
+			if (this.enemyType == "kitten")
+				SoundManager.instance.PlaySingle (kittenDeath);
+			anim.SetTrigger ("dead");
+			Destroy (gameObject);
 		}
 	}
 
 	void OnCollisionStay2D(Collision2D coll){
 		if (coll.collider.tag == "Bullet"){
-			getDamage(coll.collider.gameObject.GetComponent<Bullet> ().damage);
+			GetDamage(coll.collider.gameObject.GetComponent<Bullet> ().damage);
+			anim.SetBool ("onHit", true);
 		}
 
 		//reverse scale if collidessmth exept player
-		if ((coll.collider.tag != "Player") && (coll.collider.tag != "Bullet") && (coll.collider.tag != "Enemy")) {
+		if ((coll.collider.tag != "Player") && (coll.collider.tag != "Bullet") && (coll.collider.tag != "Enemy") && (coll.collider.tag != "ExitPoint")) {
 
 			RaycastHit2D[] hits;
 			thisCollider.enabled = false;
@@ -64,7 +92,7 @@ public class Enemy : MonoBehaviour {
 
 			if (hits.Length != 0) {
 				foreach (var hit in hits) {
-					if ((hit.collider.tag != "Player") && (hit.collider.tag != "Bullet") && (hit.collider.tag != "Enemy")) {
+					if ((hit.collider.tag != "Player") && (hit.collider.tag != "Bullet") && (hit.collider.tag != "Enemy") && (coll.collider.tag != "ExitPoint")) {
 						Debug.Log ("TURN");
 						this.transform.localScale = new Vector3 (this.transform.lossyScale.x * -1, this.transform.lossyScale.y, this.transform.lossyScale.z);
 						moveVector *= -1;

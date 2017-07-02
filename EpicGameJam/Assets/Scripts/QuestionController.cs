@@ -4,21 +4,22 @@ using System.Collections.Generic;
 
 public class QuestionController : MonoBehaviour {
 
-	public List<Question> qList;
+	//public List<Question> qList;
+	public List<GameObject> goList;
 	int pointer = 0;
 
 	// Use this for initialization
 	void Start () {
-		foreach (var item in qList) {
-			item.gameObject.SetActive (false);
+		foreach (var item in goList) {
+			item.SetActive (false);
 		}
-		qList [pointer].gameObject.SetActive (true);
+		goList [pointer].SetActive (true);
 	}
 	
 	public void NextQuestion(){
 		pointer++;
-		if (pointer <= qList.Count - 1) {
-			qList [pointer].gameObject.SetActive (true);
+		if (pointer <= goList.Count - 1) {
+			goList [pointer].SetActive (true);
 		} else {
 			//start game here
 		}

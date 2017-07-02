@@ -2,11 +2,36 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, IWorldObject {
+
+	public WorldController wCont;
 
 	public AudioClip walking1;
 	public AudioClip walking2;
+	public AudioClip jumpSound;
+	public AudioClip hitSound1;
+	public AudioClip hitSound2;
+	public AudioClip hitSound3;
+	public AudioClip hitSound4;
 
+	public bool doubleJumpAbility = true;
+
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	public bool doubleJumpAbility = true;
+>>>>>>> master
+=======
+	public bool doubleJumpAbility = true;
+>>>>>>> master
+=======
+	public bool doubleJumpAbility = true;
+>>>>>>> master
+
+>>>>>>> master
 	public bool moving = false;
 	//player speed
 	public float speed = 10f;
@@ -61,19 +86,27 @@ public class Player : MonoBehaviour {
 	public GameObject bombThrowablePrefab;
 	//bomb spawn point
 	public Transform bombSpawnPoint;
+	//animator
+	private Animator anim;
 
 	void Start () {
+		wCont = GameObject.FindObjectOfType<WorldController> ();
+		InitParameters ();
+		currentHp = maximumHp;
+
 		rb2D = GetComponent<Rigidbody2D> ();
 		invulnerable = false;
+		anim = GetComponent<Animator> ();
 
 		if (bombMaxCount > maximumGrenadesToSpawn)
 			bombMaxCount = maximumGrenadesToSpawn;
 		if (maximumHp > maximumHeartsToSpawn)
 			maximumHp = maximumHeartsToSpawn;
 
-		GenerateBombsAndHearts ();
+		//GenerateBombsAndHearts ();
 	}
 
+	/*
 	void GenerateBombsAndHearts () {
 		GameObject heartParent = GameObject.FindGameObjectWithTag ("HeartParent");
 		heartsOnBoard = new List<GameObject>[maximumHp];
@@ -101,6 +134,7 @@ public class Player : MonoBehaviour {
 			Debug.Log ("Grenade created.");
 		}
 	}
+	*/
 
 	void Update () {
 		CheckMove ();
@@ -114,11 +148,18 @@ public class Player : MonoBehaviour {
 		Move ();
 		Jump ();
 		Bomb (); 
+		MuteMusic ();
 
 		if (Time.time >= (collisionTime + invulnerabilityTime)) {
 			invulnerable = false;
+			anim.SetBool ("onHit",false);
 			Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"),LayerMask.NameToLayer ("Enemy"),invulnerable);
 		}
+	}
+
+	void MuteMusic () {
+		if (Input.GetKeyDown (KeyCode.M))
+			SoundManager.instance.musicSource.mute = !SoundManager.instance.musicSource.mute;
 	}
 
 	void CheckMove () {	
@@ -137,6 +178,16 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+	void Move () {
+		if (direction != new Vector3 (0, 0, 0))
+
+			transform.Translate (speed * direction * Time.deltaTime);
+
+		if ((facingRight && transform.localScale.x <= 0) || (!facingRight && transform.localScale.x >= 0))
+			transform.localScale = new Vector3 (transform.localScale.x * (-1), transform.localScale.y, transform.localScale.z);
+
+	}
+
 	void CheckJump () {
 		if (grounded)
 			doubleJumped = false;
@@ -149,26 +200,29 @@ public class Player : MonoBehaviour {
 			moving = true;
 		}
 
-		else if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow)) && !grounded && !doubleJumped) {
+		else if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow)) && !grounded && !doubleJumped && doubleJumpAbility) {
 			isJumping = true;
 			doubleJumped = true;
 			moving = true;
 		}
 	}
-
-	void Move () {
-		if (direction != new Vector3 (0, 0, 0))
-
-			transform.Translate (speed * direction * Time.deltaTime);
-
-		if ((facingRight && transform.localScale.x <= 0) || (!facingRight && transform.localScale.x >= 0))
-			transform.localScale = new Vector3 (transform.localScale.x * (-1), transform.localScale.y, transform.localScale.z);
-
-	}
 		
 	void Jump () {
 		if (isJumping) {
-				rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+			rb2D.Sleep ();
+			rb2D.WakeUp ();
+=======
+>>>>>>> master
+=======
+>>>>>>> master
+=======
+>>>>>>> master
+			rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
+			if (!doubleJumped)
+				SoundManager.instance.PlaySingle (jumpSound);
 			isJumping = false;
 		}
 	}
@@ -183,8 +237,6 @@ public class Player : MonoBehaviour {
 	}
 
 	void TriggerWalkSounds () {
-		float randomClipChooser = Random.Range (0,10);
-
 		if (moving && grounded) {
 			SoundManager.instance.RandomizeSfx (walking1, walking2);
 		}
@@ -192,7 +244,6 @@ public class Player : MonoBehaviour {
 	}
 
 	void TriggerMoveAnimation () {
-		Animator anim = GetComponent<Animator>();
 		anim.SetTrigger ("moving");
 	}
 
@@ -200,8 +251,11 @@ public class Player : MonoBehaviour {
 		
 		if (col.collider.tag == "Enemy") {
 
+			SoundManager.instance.RandomizeSfx (hitSound1,hitSound2,hitSound3,hitSound4);
+
 			if (currentHp <= maximumHp && currentHp > 0) {
 				currentHp--;
+				Debug.Log (currentHp);
 				RemoveHeart ();
 				if (currentHp == 0)
 					Death ();
@@ -210,6 +264,7 @@ public class Player : MonoBehaviour {
 			//Debug.Log ("Collision with an enemy.");
 			collisionTime = Time.time;
 			invulnerable = true;
+			anim.SetBool ("onHit",true);
 			Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"),LayerMask.NameToLayer ("Enemy"),invulnerable);
 			//Триггер для анимации мигания - здесь!
 
@@ -235,7 +290,72 @@ public class Player : MonoBehaviour {
 
 	void Death () {
 		//death animation
-		if (this.gameObject != null)
-			Destroy(this.gameObject);
+		if (this.gameObject != null) {
+			anim.SetBool ("dead", true);
+			Destroy (this.gameObject);
+		}
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> master
 	}
+
+	public void InitParameters(){
+		doubleJumpAbility = wCont.playerDoubleJump;
+		maximumHp += wCont.playerHpIncrement;
+		if (maximumHp <= 0) {
+			maximumHp = 1;
+		}
+		wCont.playerHpIncrement = 0;
+		jumpHeight = wCont.playerJumpHeight;
+		speed = wCont.playerSpeed;
+	}
+
+	public void InitParameters(){
+		doubleJumpAbility = wCont.playerDoubleJump;
+		maximumHp += wCont.playerHpIncrement;
+		if (maximumHp <= 0) {
+			maximumHp = 1;
+		}
+		wCont.playerHpIncrement = 0;
+		jumpHeight = wCont.playerJumpHeight;
+		speed = wCont.playerSpeed;
+<<<<<<< HEAD
+>>>>>>> master
+	}
+
+	public void InitParameters(){
+		doubleJumpAbility = wCont.playerDoubleJump;
+		maximumHp += wCont.playerHpIncrement;
+		if (maximumHp <= 0) {
+			maximumHp = 1;
+		}
+		wCont.playerHpIncrement = 0;
+		jumpHeight = wCont.playerJumpHeight;
+		speed = wCont.playerSpeed;
+<<<<<<< HEAD
+		bombCurrentAmount = wCont.playerGrenadesCount;
+		bombMaxCount = bombCurrentAmount;
+=======
+=======
+>>>>>>> master
+	}
+<<<<<<< HEAD
+=======
+
+	public void InitParameters(){
+		doubleJumpAbility = wCont.playerDoubleJump;
+		maximumHp += wCont.playerHpIncrement;
+		if (maximumHp <= 0) {
+			maximumHp = 1;
+		}
+		wCont.playerHpIncrement = 0;
+		jumpHeight = wCont.playerJumpHeight;
+		speed = wCont.playerSpeed;
+>>>>>>> master
+	}
+
+
+>>>>>>> master
 }

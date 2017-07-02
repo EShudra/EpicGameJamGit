@@ -21,6 +21,7 @@ public class Question : MonoBehaviour {
 
 	void OnDestroy(){
 		//this.transform.GetComponentInParent<QuestionController> ().NextQuestion ();
+		GameObject.FindObjectOfType<WorldController>().UpdateSettings();
 		this.transform.parent.gameObject.GetComponent<QuestionController>().NextQuestion();
 	}
 	
