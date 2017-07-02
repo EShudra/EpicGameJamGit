@@ -14,6 +14,15 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 
 	public AudioClip kittenDeath;
 	public string enemyType;
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+	public AudioClip kittenDeath;
+	public string enemyType;
+=======
+>>>>>>> master
+=======
+>>>>>>> master
 
 	//movement vector
 	public Vector3 moveVector = new Vector3 ( 1, 0, 0);
@@ -41,7 +50,17 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 
 	public void GetDamage (float damage){
 		enemyHp -= damage;
+<<<<<<< HEAD
+		if (enemyHp <= 0) {
+=======
 		if (enemyHp < 0) {
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> master
+=======
+>>>>>>> master
 			if (this.enemyType == "kitten")
 				SoundManager.instance.PlaySingle (kittenDeath);
 			anim.SetTrigger ("dead");
@@ -56,7 +75,7 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 		}
 
 		//reverse scale if collidessmth exept player
-		if ((coll.collider.tag != "Player") && (coll.collider.tag != "Bullet") && (coll.collider.tag != "Enemy")) {
+		if ((coll.collider.tag != "Player") && (coll.collider.tag != "Bullet") && (coll.collider.tag != "Enemy") && (coll.collider.tag != "ExitPoint")) {
 
 			RaycastHit2D[] hits;
 			thisCollider.enabled = false;
@@ -73,7 +92,7 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 
 			if (hits.Length != 0) {
 				foreach (var hit in hits) {
-					if ((hit.collider.tag != "Player") && (hit.collider.tag != "Bullet") && (hit.collider.tag != "Enemy")) {
+					if ((hit.collider.tag != "Player") && (hit.collider.tag != "Bullet") && (hit.collider.tag != "Enemy") && (coll.collider.tag != "ExitPoint")) {
 						Debug.Log ("TURN");
 						this.transform.localScale = new Vector3 (this.transform.lossyScale.x * -1, this.transform.lossyScale.y, this.transform.lossyScale.z);
 						moveVector *= -1;
