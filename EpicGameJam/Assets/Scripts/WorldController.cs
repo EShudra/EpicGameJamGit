@@ -29,6 +29,7 @@ public class WorldController : MonoBehaviour {
 	public float playerJumpHeight;
 	public bool playerDoubleJump;
 	public int playerGrenadesCount;
+	public int playerGrenadesCountMaxInc;
 	public int playerGrenadesCountMax;
 
 	//gun---------
@@ -82,6 +83,7 @@ public class WorldController : MonoBehaviour {
 		gameSettings.Add ("playerJumpPower", playerJumpHeight.ToString());
 		gameSettings.Add ("playerHpIncrement", playerHpIncrement.ToString());
 		gameSettings.Add ("playerGrenadesCount", playerGrenadesCount.ToString());
+		gameSettings.Add ("playerGrenadesCountMaxInc", playerGrenadesCountMaxInc.ToString());
 		gameSettings.Add ("playerGrenadesCountMax", playerGrenadesCountMax.ToString());
 
 		//gun
@@ -127,6 +129,8 @@ public class WorldController : MonoBehaviour {
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bullet"), LayerMask.NameToLayer ("Bullet"), true);
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bullet"), LayerMask.NameToLayer ("Player"), true);
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bomb"), LayerMask.NameToLayer ("Player"), true);
+		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bomb"), LayerMask.NameToLayer ("Bullet"), true);
+		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bomb"), LayerMask.NameToLayer ("Bomb"), true);
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Enemy"), LayerMask.NameToLayer ("ExitPoint"), true);
 
 		InitializeValue ();
@@ -161,6 +165,8 @@ public class WorldController : MonoBehaviour {
 		playerHpIncrement = int.Parse( gameSettings["playerHpIncrement"]);
 
 		playerGrenadesCount = int.Parse (gameSettings ["playerGrenadesCount"]);
+
+		playerGrenadesCountMaxInc = int.Parse (gameSettings ["playerGrenadesCountMaxInc"]);
 
 		playerGrenadesCountMax = int.Parse (gameSettings ["playerGrenadesCountMax"]);
 
