@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: 2b43c52afe9d9704897b6a95fbc06318
-timeCreated: 1498918722
+timeCreated: 1499024709
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - wCont: {instanceID: 0}
+  - behemothSpawn: {fileID: 8300000, guid: 9e9589667be20e947aee89ca984cc4f3, type: 3}
+  - enemyPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -14,6 +14,8 @@ public class Player : MonoBehaviour, IWorldObject {
 	public AudioClip hitSound3;
 	public AudioClip hitSound4;
 
+	private float lastWalkingSoundTime;
+
 	public bool doubleJumpAbility = true;
 	public bool moving = false;
 	//player speed
@@ -123,6 +125,7 @@ public class Player : MonoBehaviour, IWorldObject {
 		CheckMove ();
 		CheckJump ();
 		TriggerMoveAnimation ();
+		TriggerWalkSounds ();
 	}
 
 	void FixedUpdate () {
@@ -180,13 +183,11 @@ public class Player : MonoBehaviour, IWorldObject {
 
 		if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow)) && grounded) {
 			isJumping = true;
-			moving = true;
 		}
 
 		else if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow)) && !grounded && !doubleJumped && doubleJumpAbility) {
 			isJumping = true;
 			doubleJumped = true;
-			moving = true;
 		}
 	}
 		
@@ -196,7 +197,7 @@ public class Player : MonoBehaviour, IWorldObject {
 			rb2D.WakeUp ();
 			rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
 			if (!doubleJumped)
-				SoundManager.instance.PlaySingle (jumpSound);
+				SoundManager.instance.PlayPlayerSound (jumpSound);
 			isJumping = false;
 		}
 	}
@@ -211,10 +212,12 @@ public class Player : MonoBehaviour, IWorldObject {
 	}
 
 	void TriggerWalkSounds () {
-		if (moving && grounded) {
-			SoundManager.instance.RandomizeSfx (walking1, walking2);
+		float newWalkingSound = Time.time;
+
+		if (moving && grounded && ((lastWalkingSoundTime+0.5f)<newWalkingSound)) {
+			SoundManager.instance.PlayPlayerSound (walking1, walking2);
+			lastWalkingSoundTime = Time.time;
 		}
-			
 	}
 
 	void TriggerMoveAnimation () {
@@ -225,7 +228,7 @@ public class Player : MonoBehaviour, IWorldObject {
 		
 		if (col.collider.tag == "Enemy") {
 
-			SoundManager.instance.RandomizeSfx (hitSound1,hitSound2,hitSound3,hitSound4);
+			SoundManager.instance.PlayPlayerSound (hitSound1,hitSound2,hitSound3,hitSound4);
 
 			if (currentHp <= maximumHp && currentHp > 0) {
 				currentHp--;
@@ -265,7 +268,7 @@ public class Player : MonoBehaviour, IWorldObject {
 	void Death () {
 		//death animation
 		if (this.gameObject != null) {
-			anim.SetBool ("dead", true);
+			anim.SetTrigger("dead");
 			Destroy (this.gameObject);
 		}
 	}

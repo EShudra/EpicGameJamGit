@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿	using UnityEngine;
 using System.Collections;
 
 public class Enemy : MonoBehaviour, IDestroyableObject {
@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 	//enemy damage
 	[HideInInspector]public float enemyDamage;
 
+	public AudioClip behemothOnHit;
 	public AudioClip kittenDeath;
 	public string enemyType;
 
@@ -33,6 +34,7 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 
 	void FixedUpdate(){
 		Move ();
+		anim.SetBool ("onHit", false);
 	}
 
 	void Move(){
@@ -53,6 +55,7 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 	void OnCollisionStay2D(Collision2D coll){
 		if (coll.collider.tag == "Bullet"){
 			GetDamage(coll.collider.gameObject.GetComponent<Bullet> ().damage);
+
 			anim.SetBool ("onHit", true);
 		}
 
