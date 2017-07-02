@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class WorldController : MonoBehaviour {
@@ -12,9 +13,45 @@ public class WorldController : MonoBehaviour {
 	//Drag & drop main menu here
 	public GameObject mainMenu;
 
-	//Drag & drop main menu here
+	//Drag & drop main retry here
 	public GameObject retryMenu;
 
+	//dictionary of game settings
+	public Dictionary<string, string> gameSettings;
+
+
+	//GAME SETTINGS LIBRARY
+	//======================================//
+	//player-------
+	public float playerSpeed;
+	public int playerMaxHp;
+	public int playerHpIncrement;//<- use to add max hp
+	public float playerJumpHeight;
+
+	//gun---------
+	public Sprite[] gunSprites;
+	public int gunSprite;
+	public float gunFireRate;
+	public float[] gunFireLinesAngle;
+	public float gunFireLinesDispersion;
+
+	//bullet-------
+	public Sprite[] bulletSprites;
+	public int bulletSprite;
+	public float bulletDamage;
+	public float bulletSpeed;
+
+	//bomb----------
+
+	//level---------
+	public int currentLvlPrefab;
+
+	//======================================//
+
+
+	void InitializeValue(){
+		
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -32,12 +69,14 @@ public class WorldController : MonoBehaviour {
 
 	public void StartGame(){
 		mainMenu.gameObject.SetActive (false);
-		Instantiate (levelPrefabs [0]);
+		Instantiate (levelPrefabs [currentLvlPrefab]);
 	}
 
 	public void ShowRetryMenu(bool state){
 		retryMenu.gameObject.SetActive (state);
 	}
 
-
+	public void UpdateGameSetting(string key, string value){
+		gameSettings[key] = value;
+	}
 }
