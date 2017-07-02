@@ -12,9 +12,15 @@ public class CameraBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (Input.GetMouseButtonDown (0)) {
 			anim.SetTrigger ("Shake");
 		}
+=======
+		/*if (Input.GetMouseButtonDown (0)) {
+			anim.SetTrigger ("Shake");
+		}*/
+>>>>>>> master
 =======
 		/*if (Input.GetMouseButtonDown (0)) {
 			anim.SetTrigger ("Shake");
