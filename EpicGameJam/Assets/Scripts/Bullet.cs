@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bullet : MonoBehaviour {
+public class Bullet : MonoBehaviour, IWorldObject {
+
+	public WorldController wCont;
 
 	//bullet moving speed
 	public float bulletSpeed;
@@ -25,6 +27,9 @@ public class Bullet : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		birthTime = Time.time;
+		wCont = GameObject.FindObjectOfType<WorldController> ();
+		InitParameters ();
+
 		//init bullet piercing
 
 
@@ -62,6 +67,17 @@ public class Bullet : MonoBehaviour {
 			this.enabled = false;
 			Destroy (this.gameObject);
 		}	
+	}
+
+	public void InitParameters (){
+		bulletSpeed = wCont.bulletSpeed;
+		damage = wCont.bulletDamage;
+		lifetime = wCont.bulletLifetime; 
+		bulletSpeed *= wCont.bulletSpeedMul;
+		damage *= wCont.bulletDamageMul;
+		wCont.bulletDamageMul = 1;
+		wCont.bulletSpeedMul = 1;
+
 	}
 	
 }
