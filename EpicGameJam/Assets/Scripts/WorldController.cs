@@ -30,7 +30,10 @@ public class WorldController : MonoBehaviour {
 	public bool playerDoubleJump;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public int playerGrenadesCount;
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 =======
@@ -44,7 +47,11 @@ public class WorldController : MonoBehaviour {
 	public int gunFireLinesCount;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public float[] gunFiveLines = new float[5]{0,0,0,0,0};
+=======
+	public float[] gunFiveLines = new float[5];
+>>>>>>> master
 =======
 	public float[] gunFiveLines = new float[5];
 >>>>>>> master
@@ -91,8 +98,11 @@ public class WorldController : MonoBehaviour {
 		gameSettings.Add ("playerHpIncrement", playerHpIncrement.ToString());
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		gameSettings.Add ("playerGrenadesCount", playerGrenadesCount.ToString());
 		 
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 =======
@@ -104,7 +114,10 @@ public class WorldController : MonoBehaviour {
 		gameSettings.Add ("gunFireLinesAmount", gunFireLinesCount.ToString());
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 =======
@@ -148,7 +161,11 @@ public class WorldController : MonoBehaviour {
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bomb"), LayerMask.NameToLayer ("Player"), true);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Enemy"), LayerMask.NameToLayer ("ExitPoint"), true);
+=======
+
+>>>>>>> master
 =======
 
 >>>>>>> master
@@ -188,8 +205,11 @@ public class WorldController : MonoBehaviour {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		playerGrenadesCount = int.Parse (gameSettings ["playerGrenadesCount"]);
 
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 =======

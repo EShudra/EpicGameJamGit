@@ -15,9 +15,12 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 	public AudioClip kittenDeath;
 	public string enemyType;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	public AudioClip kittenDeath;
 	public string enemyType;
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 
@@ -52,6 +55,9 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 =======
 		if (enemyHp < 0) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 =======
 >>>>>>> master
