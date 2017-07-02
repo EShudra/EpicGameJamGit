@@ -6,8 +6,9 @@
       <File FileName="Assets\Scripts\IDestroyableObject.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\IWorldObject.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Bomb.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Bullet.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Bullet.cs" Line="5" Column="2" />
       <File FileName="Assets\Scripts\Gun.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Explosion.cs" Line="4" Column="41" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
