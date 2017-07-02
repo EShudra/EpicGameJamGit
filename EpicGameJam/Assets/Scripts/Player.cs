@@ -6,6 +6,10 @@ public class Player : MonoBehaviour, IWorldObject {
 
 	public WorldController wCont;
 
+	//blood vfx
+	public GameObject bloodHitPrefab1;
+	public GameObject bloodHitPrefab2;
+
 	public AudioClip walking1;
 	public AudioClip walking2;
 	public AudioClip jumpSound;
@@ -14,8 +18,12 @@ public class Player : MonoBehaviour, IWorldObject {
 	public AudioClip hitSound3;
 	public AudioClip hitSound4;
 
-	public bool doubleJumpAbility = true;
+	private float lastWalkingSoundTime;
 
+<<<<<<< HEAD
+=======
+	public bool doubleJumpAbility = true;
+>>>>>>> master
 	public bool moving = false;
 	//player speed
 	public float speed = 10f;
@@ -123,7 +131,7 @@ public class Player : MonoBehaviour, IWorldObject {
 	void Update () {
 		CheckMove ();
 		CheckJump ();
-		TriggerMoveAnimation ();
+		TriggerWalkSounds ();
 	}
 
 	void FixedUpdate () {
@@ -153,12 +161,15 @@ public class Player : MonoBehaviour, IWorldObject {
 			direction += Vector3.right;
 			facingRight = true;
 			moving = true;
+			TriggerMoveAnimation (moving);
 		} else if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow)) {
 			direction += Vector3.left;
 			facingRight = false;
 			moving = true;
+			TriggerMoveAnimation (moving);
 		} else {
 			moving = false;
+			TriggerMoveAnimation (moving);
 		}
 	}
 
@@ -181,30 +192,33 @@ public class Player : MonoBehaviour, IWorldObject {
 
 		if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow)) && grounded) {
 			isJumping = true;
-			moving = true;
 		}
 
 		else if ((Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow)) && !grounded && !doubleJumped && doubleJumpAbility) {
 			isJumping = true;
 			doubleJumped = true;
-			moving = true;
 		}
 	}
 		
 	void Jump () {
 		if (isJumping) {
+<<<<<<< HEAD
 			rb2D.Sleep ();
 			rb2D.WakeUp ();
+=======
+			rb2D.Sleep();
+			rb2D.WakeUp(); 
+>>>>>>> master
 			rb2D.AddForce (new Vector2 (0f, jumpForce * jumpHeight));
 			if (!doubleJumped)
-				SoundManager.instance.PlaySingle (jumpSound);
+				SoundManager.instance.PlayPlayerSound (jumpSound);
 			isJumping = false;
 		}
 	}
 
 	void Bomb () {
-		if (Input.GetKeyDown (KeyCode.Q) && bombCurrentAmount != 0) {
-			Debug.Log ("Bomb has been thrown");
+		if (Input.GetKeyDown (KeyCode.Q) && (bombCurrentAmount != 0)) {
+			//Debug.Log ("Bomb has been thrown");
 			if (bombCurrentAmount <= bombMaxCount && bombCurrentAmount > 0)
 				bombCurrentAmount--;
 			Instantiate (bombThrowablePrefab,this.bombSpawnPoint.position, Quaternion.identity);
@@ -212,21 +226,24 @@ public class Player : MonoBehaviour, IWorldObject {
 	}
 
 	void TriggerWalkSounds () {
-		if (moving && grounded) {
-			SoundManager.instance.RandomizeSfx (walking1, walking2);
+		float newWalkingSound = Time.time;
+
+		if (moving && grounded && ((lastWalkingSoundTime+0.5f)<newWalkingSound)) {
+			SoundManager.instance.PlayPlayerSound (walking1, walking2);
+			lastWalkingSoundTime = Time.time;
 		}
-			
 	}
 
-	void TriggerMoveAnimation () {
-		anim.SetTrigger ("moving");
+	void TriggerMoveAnimation (bool state) {
+		//anim.SetTrigger ("moving");
+		anim.SetBool("moving",state);
 	}
 
 	void OnCollisionStay2D (Collision2D col) {
 		
 		if (col.collider.tag == "Enemy") {
 
-			SoundManager.instance.RandomizeSfx (hitSound1,hitSound2,hitSound3,hitSound4);
+			SoundManager.instance.PlayPlayerSound (hitSound1,hitSound2,hitSound3,hitSound4);
 
 			if (currentHp <= maximumHp && currentHp > 0) {
 				currentHp--;
@@ -267,12 +284,17 @@ public class Player : MonoBehaviour, IWorldObject {
 		//death animation
 		if (this.gameObject != null) {
 			anim.SetBool ("dead", true);
-			Destroy (this.gameObject);
+			this.GetComponent<BoxCollider2D> ().enabled = false;
+			rb2D.AddForce(new Vector2(0,310f));
+			rb2D.gravityScale = 1.5f;
+			Destroy (this.gameObject, 2.2f);
+			StartCoroutine (BloodVfx (1));
 		}
 	}
 
 	public void InitParameters(){
 		doubleJumpAbility = wCont.playerDoubleJump;
+		maximumHp = wCont.playerMaxHp;
 		maximumHp += wCont.playerHpIncrement;
 		if (maximumHp <= 0) {
 			maximumHp = 1;
@@ -280,6 +302,7 @@ public class Player : MonoBehaviour, IWorldObject {
 		wCont.playerHpIncrement = 0;
 		jumpHeight = wCont.playerJumpHeight;
 		speed = wCont.playerSpeed;
+<<<<<<< HEAD
 		bombCurrentAmount = wCont.playerGrenadesCount;
 		bombMaxCount = bombCurrentAmount;
 
@@ -287,4 +310,31 @@ public class Player : MonoBehaviour, IWorldObject {
 
 
 
+=======
+
+		bombMaxCount += wCont.playerGrenadesCountMaxInc;
+		wCont.playerGrenadesCountMaxInc = 0;
+		bombCurrentAmount = bombMaxCount;
+
+	}
+
+	IEnumerator BloodVfx(float delay){
+		float startTime = Time.time;
+		while ((Time.time - startTime) < delay){
+			Debug.Log(Time.time);
+			if (Random.value < 0.15f) {
+				Instantiate (bloodHitPrefab1,
+					transform.position + new Vector3((Random.value-1)*0.5f,(Random.value-1)*0.5f,0),
+					Quaternion.identity);
+			}
+			if (Random.value < 0.15f) {
+				Instantiate (bloodHitPrefab2,
+					transform.position + new Vector3((Random.value-1)*0.5f,(Random.value-1)*0.5f,0),
+					Quaternion.identity);
+			}
+			yield return null;
+		}
+	}
+		
+>>>>>>> master
 }
