@@ -53,7 +53,6 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 		if (coll.collider.tag == "Bullet"){
 			GetDamage(coll.collider.gameObject.GetComponent<Bullet> ().damage);
 			anim.SetBool ("onHit", true);
-			WaitForSeconds (0.02f);
 			anim.SetBool ("onHit", false);
 		}
 

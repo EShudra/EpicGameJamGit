@@ -79,9 +79,10 @@ public class Player : MonoBehaviour {
 		if (maximumHp > maximumHeartsToSpawn)
 			maximumHp = maximumHeartsToSpawn;
 
-		GenerateBombsAndHearts ();
+		//GenerateBombsAndHearts ();
 	}
 
+	/*
 	void GenerateBombsAndHearts () {
 		GameObject heartParent = GameObject.FindGameObjectWithTag ("HeartParent");
 		heartsOnBoard = new List<GameObject>[maximumHp];
@@ -109,6 +110,7 @@ public class Player : MonoBehaviour {
 			Debug.Log ("Grenade created.");
 		}
 	}
+	*/
 
 	void Update () {
 		CheckMove ();
@@ -252,7 +254,9 @@ public class Player : MonoBehaviour {
 
 	void Death () {
 		//death animation
-		if (this.gameObject != null)
-			Destroy(this.gameObject);
+		if (this.gameObject != null) {
+			anim.SetBool ("dead", true);
+			Destroy (this.gameObject);
+		}
 	}
 }
