@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Gun : MonoBehaviour {
+public class Gun : MonoBehaviour, IWorldObject {
+
+	public WorldController wCont;
 
 	public AudioClip shootingSound;
 	//how often bullets are spawned. period in seconds between spawn
@@ -23,10 +25,11 @@ public class Gun : MonoBehaviour {
 	void Start () {
 		//init Last bullet spawn time
 		lastBulletSpawnTime = Time.time;
+		wCont = GameObject.FindObjectOfType<WorldController> ();
+		InitParameters ();
 	}
 
 	void Update () {
-
 		//spawn BULLET ->>>if SPACE is pressed and bullet spawn cooldown is ended
 		if (Input.GetKey (KeyCode.Space) && (Time.time - lastBulletSpawnTime > fireRate)) {
 			lastBulletSpawnTime = Time.time;
@@ -37,10 +40,17 @@ public class Gun : MonoBehaviour {
 				go.transform.position = go.transform.TransformPoint (go.transform.localPosition);
 				//go.transform.localRotation.eulerAngles.z;
 				this.transform.DetachChildren();
-
-
 			}
+		}
+	}
 
+	public void InitParameters (){
+		fireRate = wCont.gunFireRate;
+		fireLinesDispersionAngle = wCont.gunAccuracyAngle;
+		fireLinesAngle = new float[ wCont.gunFireLinesCount ];
+		for (int i = 0; i< fireLinesAngle.Length -1; i++){
+			fireLinesAngle[i] = wCont.gunFiveLines[i];
+			//Debug.Log ("!!!!!!!!!!"+ wCont.gunFiveLines[i]);
 		}
 	}
 }
