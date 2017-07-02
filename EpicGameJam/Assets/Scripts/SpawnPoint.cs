@@ -37,6 +37,7 @@ public class SpawnPoint : MonoBehaviour {
 			this.enabled = false;
 		}
 		if (Time.time - birthTime > startDelay) {
+			this.gameObject.GetComponent<Animator> ().SetBool ("active", true);
 			if (Time.time - lastEnemySpawned > coolDown) {
 				SpawnEnemy ();
 				lastEnemySpawned = Time.time;
