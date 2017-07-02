@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 				StartCoroutine (playKittemSound ());
 			anim.SetTrigger ("dead");
 			//this.GetComponent<BoxCollider2D> ().enabled = false;
-			this.transform.tag = "";
+			this.transform.tag = "Bomb";
 			transform.gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0,300f));
 			this.GetComponent<Rigidbody2D> ().gravityScale = 0.5f;
 			enemySpeed = 0;
