@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 9bb874d9139a66348bcea281c9166730
-timeCreated: 1498957459
+guid: e72c1112663b33d4184cf6982352454d
+timeCreated: 1498994183
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Enemi4_0
-    21300002: Enemi4_1
-    21300004: Enemi4_2
-    21300006: Enemi4_3
-    21300008: Enemi4_4
-    21300010: Enemi4_5
-    21300012: Enemi4_6
+    21300000: Enemy_4_0
+    21300002: Enemy_4_1
+    21300004: Enemy_4_2
+    21300006: Enemy_4_3
+    21300008: Enemy_4_4
+    21300010: Enemy_4_5
+    21300012: Enemy_4_6
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -59,91 +59,91 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemi4_0
+      name: Enemy_4_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 500
-        height: 500
+        width: 304
+        height: 312
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Enemi4_1
+      name: Enemy_4_1
       rect:
         serializedVersion: 2
-        x: 500
+        x: 304
         y: 0
-        width: 500
-        height: 500
+        width: 304
+        height: 312
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Enemi4_2
+      name: Enemy_4_2
       rect:
         serializedVersion: 2
-        x: 1000
+        x: 608
         y: 0
-        width: 500
-        height: 500
+        width: 304
+        height: 312
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Enemi4_3
+      name: Enemy_4_3
       rect:
         serializedVersion: 2
-        x: 1500
+        x: 912
         y: 0
-        width: 500
-        height: 500
+        width: 304
+        height: 312
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Enemi4_4
+      name: Enemy_4_4
       rect:
         serializedVersion: 2
-        x: 2000
+        x: 1216
         y: 0
-        width: 500
-        height: 500
+        width: 304
+        height: 312
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Enemi4_5
+      name: Enemy_4_5
       rect:
         serializedVersion: 2
-        x: 2500
+        x: 1520
         y: 0
-        width: 500
-        height: 500
+        width: 304
+        height: 312
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Enemi4_6
+      name: Enemy_4_6
       rect:
         serializedVersion: 2
-        x: 3000
+        x: 1824
         y: 0
-        width: 500
-        height: 500
+        width: 304
+        height: 312
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
