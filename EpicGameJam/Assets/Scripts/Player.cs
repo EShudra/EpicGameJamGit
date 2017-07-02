@@ -301,7 +301,6 @@ public class Player : MonoBehaviour, IWorldObject {
 		bombMaxCount += wCont.playerGrenadesCountMaxInc;
 		wCont.playerGrenadesCountMaxInc = 0;
 		bombCurrentAmount = bombMaxCount;
-
 	}
 
 	IEnumerator BloodVfx(float delay){
@@ -323,5 +322,4 @@ public class Player : MonoBehaviour, IWorldObject {
 			yield return null;
 		}
 	}
-		
 }
