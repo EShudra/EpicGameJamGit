@@ -19,6 +19,7 @@ public class QuestionController : MonoBehaviour {
 	public void NextQuestion(){
 		pointer++;
 		if (pointer <= goList.Count - 1) {
+			Debug.Log ("NEXT POS");
 			goList [pointer].SetActive (true);
 		} else {
 			//start game here
