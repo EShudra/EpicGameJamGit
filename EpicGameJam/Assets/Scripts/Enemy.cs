@@ -48,10 +48,12 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 			if (this.enemyType == "kitten")
 				StartCoroutine (playKittemSound ());
 			anim.SetTrigger ("dead");
-			this.GetComponent<BoxCollider2D> ().enabled = false;
-			this.GetComponent<Rigidbody2D> ().gravityScale = 0;
+			//this.GetComponent<BoxCollider2D> ().enabled = false;
+			this.transform.tag = "Bomb";
+			transform.gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0,300f));
+			this.GetComponent<Rigidbody2D> ().gravityScale = 0.5f;
 			enemySpeed = 0;
-			Destroy (gameObject, 1f);
+			Destroy (gameObject, 0.7f);
 		}
 	}
 
