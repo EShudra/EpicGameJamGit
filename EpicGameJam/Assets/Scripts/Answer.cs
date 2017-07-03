@@ -32,7 +32,7 @@ public class Answer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//this.GetComponentInChildren<Text> ().text = answerText;
+		this.GetComponentInChildren<Text> ().text = answerText;
 		wcont = GameObject.FindObjectOfType<WorldController> ();
 	}
 	
