@@ -25,8 +25,10 @@ public class QuestionController : MonoBehaviour {
 		wCont.UpdateSettings();
 		pointer++;
 		if (pointer <= goList.Count - 1) {
+
 			//Debug.Log ("NEXT POS");
 			Destroy (goList [pointer-1]);
+
 			goList [pointer].SetActive (true);
 		} 
 		/*else {
