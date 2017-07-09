@@ -32,6 +32,7 @@ public class Gun : MonoBehaviour, IWorldObject {
 	void Update () {
 		//spawn BULLET ->>>if SPACE is pressed and bullet spawn cooldown is ended
 		if (Input.GetKey (KeyCode.Space) && (Time.time - lastBulletSpawnTime > fireRate)) {
+			Debug.Log("fire!!!!");
 			lastBulletSpawnTime = Time.time;
 			foreach (float item in fireLinesAngle) {
 				object obj = Instantiate( bulletPrefab, this.transform.position, Quaternion.Euler (0,0,item + fireLinesDispersionAngle*(Random.value*2-1)),this.transform );
@@ -46,8 +47,11 @@ public class Gun : MonoBehaviour, IWorldObject {
 
 	public void InitParameters (){
 		fireRate = wCont.gunFireRate;
+		fireRate *= wCont.gunFireRateMul;
+		wCont.gunFireRateMul = 1;
 		fireLinesDispersionAngle = wCont.gunAccuracyAngle;
 		fireLinesAngle = new float[ wCont.gunFireLinesCount ];
+		Debug.Log ("!!!!!"+fireLinesAngle.Length);
 		for (int i = 0; i< fireLinesAngle.Length -1; i++){
 			fireLinesAngle[i] = wCont.gunFiveLines[i];
 			//Debug.Log ("!!!!!!!!!!"+ wCont.gunFiveLines[i]);

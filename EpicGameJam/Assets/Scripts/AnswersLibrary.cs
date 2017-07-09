@@ -17,6 +17,7 @@ public class AnswersLibrary : MonoBehaviour {
 
 	//get 3 answers
 	public Answer[] GetAnswers(){
+		Debug.Log ("!!!!!!!!!!!!!!!!!");
 		Answer[] ans = new Answer[3];
 		bool valid = false;
 		int c = 500;

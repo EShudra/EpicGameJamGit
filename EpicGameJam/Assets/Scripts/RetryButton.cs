@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class RetryButton : MonoBehaviour {
 
@@ -11,5 +12,9 @@ public class RetryButton : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public void OnClick(){
+		SceneManager.LoadScene ("gameplay");
 	}
 }

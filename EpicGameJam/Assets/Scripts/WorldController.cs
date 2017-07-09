@@ -39,6 +39,7 @@ public class WorldController : MonoBehaviour {
 	public Sprite[] gunSprites;
 	public int gunSprite;
 	public float gunFireRate;
+	public float gunFireRateMul;
 	public float[] gunFireLinesAngle;
 	public int gunFireLinesCount;
 	public float[] gunFiveLines = new float[5]{0,0,0,0,0};
@@ -90,6 +91,7 @@ public class WorldController : MonoBehaviour {
 
 		//gun
 		gameSettings.Add ("gunFireRate", gunFireRate.ToString());
+		gameSettings.Add ("gunFireRateMul", gunFireRateMul.ToString());
 		gameSettings.Add ("gunAccuracy", gunAccuracyAngle.ToString());
 		gameSettings.Add ("gunFireLinesAmount", gunFireLinesCount.ToString());
 
@@ -175,8 +177,10 @@ public class WorldController : MonoBehaviour {
 		//=====gun=============================
 
 		gunFireRate = float.Parse(gameSettings ["gunFireRate"]);
+		gunFireRateMul = float.Parse(gameSettings ["gunFireRateMul"]);
 
 		gunFireLinesCount = int.Parse( gameSettings["gunFireLinesAmount"]);
+		Debug.Log ("!!!!!!!!!!"+gunFireLinesCount);
 		if (gunFireLinesCount > 5) {
 			gunFireLinesCount = 5;
 		}

@@ -213,9 +213,10 @@ public class Player : MonoBehaviour, IWorldObject {
 	void Bomb () {
 		if (Input.GetKeyDown (KeyCode.Q) && (bombCurrentAmount != 0)) {
 			//Debug.Log ("Bomb has been thrown");
-			if (bombCurrentAmount <= bombMaxCount && bombCurrentAmount > 0)
+			if ((bombCurrentAmount <= bombMaxCount) && (bombCurrentAmount > 0)) {
 				bombCurrentAmount--;
-			Instantiate (bombThrowablePrefab,this.bombSpawnPoint.position, Quaternion.identity);
+				Instantiate (bombThrowablePrefab, this.bombSpawnPoint.position, Quaternion.identity);
+			}
 		}
 	}
 
@@ -303,7 +304,12 @@ public class Player : MonoBehaviour, IWorldObject {
 
 		bombMaxCount += wCont.playerGrenadesCountMaxInc;
 		wCont.playerGrenadesCountMaxInc = 0;
+
 		bombCurrentAmount = bombMaxCount;
+		if (bombMaxCount < 0) {
+			bombCurrentAmount = 0;
+			bombMaxCount = 0;
+		}
 	}
 
 	IEnumerator BloodVfx(float delay){

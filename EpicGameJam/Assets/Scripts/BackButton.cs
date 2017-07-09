@@ -15,6 +15,6 @@ public class BackButton : MonoBehaviour {
 	}
 
 	public void onClick(){
-		SceneManager.LoadScene ("EShudraScene");
+		SceneManager.LoadScene ("startScene");
 	}
 }
