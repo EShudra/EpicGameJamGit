@@ -81,8 +81,15 @@ public class ExitPoint : MonoBehaviour {
 
 	void EndLevel(){
 		if (exitOpened) {
-			Destroy (level);
-			//qCont.NextQuestion ();
+			//Time.timeScale = 0.05f;
+			//Destroy (level.gameObject, 3);
+			foreach ( var item in GameObject.FindObjectsOfType<Enemy>()){
+				Destroy(item.gameObject);
+			}		
+			foreach ( var item in GameObject.FindObjectsOfType<SpawnPoint>()){
+				Destroy(item.gameObject);
+			}	
+			qCont.NextQuestion ();
 			/*foreach (var item in GameObject.FindObjectsOfType<GameObject>()) {
 				if (item.GetComponent<Camera> () == null) {
 					Destroy (item);
