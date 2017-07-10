@@ -53,6 +53,7 @@ UnityLockfile
 ururu/
 =======
 ururu/
+<<<<<<< HEAD
 
 GameJam_Science/Assembly-CSharp.csproj
 GameJam_Science/GameJam_Science.userprefs
@@ -137,4 +138,6 @@ EpicGameJam/Library/metadata/8e/8e0cd8ed44d4412cbe0642067abc9e44
 EpicGameJam/Library/metadata/97/97decbdab0634cdd991f8d23ddf0dead
 EpicGameJam/Library/metadata/ad/adebbd281f1a4ef3a30be7f21937e02f
 EpicGameJam/Library/metadata/f5/f5f67c52d1564df4a8936ccd202a3bd8
+>>>>>>> master
+=======
 >>>>>>> master
