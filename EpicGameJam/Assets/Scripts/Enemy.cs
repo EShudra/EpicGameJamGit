@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿	using UnityEngine;
 using System.Collections;
 
 public class Enemy : MonoBehaviour, IDestroyableObject {
@@ -12,17 +12,9 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 	//enemy damage
 	[HideInInspector]public float enemyDamage;
 
+	public AudioClip behemothOnHit;
 	public AudioClip kittenDeath;
 	public string enemyType;
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-	public AudioClip kittenDeath;
-	public string enemyType;
-=======
->>>>>>> master
-=======
->>>>>>> master
 
 	//movement vector
 	public Vector3 moveVector = new Vector3 ( 1, 0, 0);
@@ -42,6 +34,7 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 
 	void FixedUpdate(){
 		Move ();
+		anim.SetBool ("onHit", false);
 	}
 
 	void Move(){
@@ -50,27 +43,24 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 
 	public void GetDamage (float damage){
 		enemyHp -= damage;
-<<<<<<< HEAD
+
 		if (enemyHp <= 0) {
-=======
-		if (enemyHp < 0) {
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> master
-=======
->>>>>>> master
 			if (this.enemyType == "kitten")
-				SoundManager.instance.PlaySingle (kittenDeath);
+				StartCoroutine (playKittemSound ());
 			anim.SetTrigger ("dead");
-			Destroy (gameObject);
+			//this.GetComponent<BoxCollider2D> ().enabled = false;
+			this.transform.tag = "Bomb";
+			transform.gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0,300f));
+			this.GetComponent<Rigidbody2D> ().gravityScale = 0.5f;
+			enemySpeed = 0;
+			Destroy (gameObject, 0.7f);
 		}
 	}
 
 	void OnCollisionStay2D(Collision2D coll){
 		if (coll.collider.tag == "Bullet"){
 			GetDamage(coll.collider.gameObject.GetComponent<Bullet> ().damage);
+
 			anim.SetBool ("onHit", true);
 		}
 
@@ -100,9 +90,11 @@ public class Enemy : MonoBehaviour, IDestroyableObject {
 				}
 			}
 		}
-	
-			
+	}
 
+	IEnumerator playKittemSound(){
+		yield return new WaitForSeconds (Random.value * 0.3f);
+		GetComponent<AudioSource> ().Play ();
 	}
 
 }

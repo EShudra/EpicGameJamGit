@@ -16,6 +16,9 @@ public class WorldController : MonoBehaviour {
 	//Drag & drop main retry here
 	public GameObject retryMenu;
 
+	//Drag & drop here
+	public QuestionController qCont;
+
 	//dictionary of game settings
 	public Dictionary<string, string> gameSettings = new Dictionary<string, string>();
 
@@ -28,36 +31,19 @@ public class WorldController : MonoBehaviour {
 	public int playerHpIncrement;//<- use to add max hp
 	public float playerJumpHeight;
 	public bool playerDoubleJump;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	public int playerGrenadesCount;
-=======
->>>>>>> master
-=======
->>>>>>> master
-=======
->>>>>>> master
+	public int playerGrenadesCountMaxInc;
+	public int playerGrenadesCountMax;
 
 	//gun---------
 	public Sprite[] gunSprites;
 	public int gunSprite;
 	public float gunFireRate;
+	public float gunFireRateMul;
 	public float[] gunFireLinesAngle;
 	public int gunFireLinesCount;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	public float[] gunFiveLines = new float[5]{0,0,0,0,0};
-=======
-	public float[] gunFiveLines = new float[5];
->>>>>>> master
-=======
-	public float[] gunFiveLines = new float[5];
->>>>>>> master
-=======
-	public float[] gunFiveLines = new float[5];
->>>>>>> master
+
 	public float gunFireLinesDispersion;
 	public float gunAccuracyAngle;
 
@@ -87,6 +73,9 @@ public class WorldController : MonoBehaviour {
 	//vfx
 	public bool acidEffect;
 
+	//explosion
+	public float explosionScale;
+
 	//======================================//
 
 
@@ -96,32 +85,16 @@ public class WorldController : MonoBehaviour {
 		gameSettings.Add ("playerDoubleJump", playerDoubleJump.ToString());
 		gameSettings.Add ("playerJumpPower", playerJumpHeight.ToString());
 		gameSettings.Add ("playerHpIncrement", playerHpIncrement.ToString());
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		gameSettings.Add ("playerGrenadesCount", playerGrenadesCount.ToString());
-		 
-=======
->>>>>>> master
-=======
->>>>>>> master
-=======
->>>>>>> master
+		gameSettings.Add ("playerGrenadesCountMaxInc", playerGrenadesCountMaxInc.ToString());
+		gameSettings.Add ("playerGrenadesCountMax", playerGrenadesCountMax.ToString());
 
 		//gun
 		gameSettings.Add ("gunFireRate", gunFireRate.ToString());
+		gameSettings.Add ("gunFireRateMul", gunFireRateMul.ToString());
 		gameSettings.Add ("gunAccuracy", gunAccuracyAngle.ToString());
 		gameSettings.Add ("gunFireLinesAmount", gunFireLinesCount.ToString());
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> master
-=======
->>>>>>> master
-=======
->>>>>>> master
 		gameSettings.Add ("gunFireLineAngle1", gunFiveLines[0].ToString());
 		gameSettings.Add ("gunFireLineAngle2", gunFiveLines[1].ToString());
 		gameSettings.Add ("gunFireLineAngle3", gunFiveLines[2].ToString());
@@ -141,8 +114,8 @@ public class WorldController : MonoBehaviour {
 		gameSettings.Add("spawnCoolDownMul",spawnCooldownMul.ToString());
 		gameSettings.Add("enemyHPMul", enemyHpMul.ToString());
 
-		//bomb
-		gameSettings.Add("maxBombs", maxBombs.ToString());
+		//explosion
+		gameSettings.Add("explosionScale", explosionScale.ToString());
 
 		//vfx
 		gameSettings.Add("acid", acidEffect.ToString());
@@ -159,26 +132,17 @@ public class WorldController : MonoBehaviour {
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bullet"), LayerMask.NameToLayer ("Bullet"), true);
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bullet"), LayerMask.NameToLayer ("Player"), true);
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bomb"), LayerMask.NameToLayer ("Player"), true);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bomb"), LayerMask.NameToLayer ("Bullet"), true);
+		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Bomb"), LayerMask.NameToLayer ("Bomb"), true);
 		Physics2D.IgnoreLayerCollision (LayerMask.NameToLayer ("Enemy"), LayerMask.NameToLayer ("ExitPoint"), true);
-=======
 
->>>>>>> master
-=======
-
->>>>>>> master
-=======
-
->>>>>>> master
 		InitializeValue ();
 		}
 	
 
 	public void StartGame(){
 		mainMenu.gameObject.SetActive (false);
-		Instantiate (levelPrefabs [currentLvlPrefab]);
+		qCont.gameObject.SetActive (true);
 	}
 
 	public void ShowRetryMenu(bool state){
@@ -203,23 +167,20 @@ public class WorldController : MonoBehaviour {
 
 		playerHpIncrement = int.Parse( gameSettings["playerHpIncrement"]);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		playerGrenadesCount = int.Parse (gameSettings ["playerGrenadesCount"]);
 
-=======
->>>>>>> master
-=======
->>>>>>> master
-=======
->>>>>>> master
+		playerGrenadesCountMaxInc = int.Parse (gameSettings ["playerGrenadesCountMaxInc"]);
+
+		playerGrenadesCountMax = int.Parse (gameSettings ["playerGrenadesCountMax"]);
+
 
 		//=====gun=============================
 
 		gunFireRate = float.Parse(gameSettings ["gunFireRate"]);
+		gunFireRateMul = float.Parse(gameSettings ["gunFireRateMul"]);
 
 		gunFireLinesCount = int.Parse( gameSettings["gunFireLinesAmount"]);
+		Debug.Log ("!!!!!!!!!!"+gunFireLinesCount);
 		if (gunFireLinesCount > 5) {
 			gunFireLinesCount = 5;
 		}
@@ -244,10 +205,10 @@ public class WorldController : MonoBehaviour {
 		enemyHpMul = float.Parse(gameSettings ["enemyHPMul"]);
 		maxEnemies = int.Parse(gameSettings ["enemiesPerSpawnPoint"]);
 		maxEnemiesMul = float.Parse(gameSettings ["enemiesPerSpawnPointMul"]);
-		spawnCooldownMul =float.Parse(gameSettings ["spawnCoolDownMul"]);
+		spawnCooldownMul = float.Parse(gameSettings ["spawnCoolDownMul"]);
 
-
-
+		//=====explosion==============
+		explosionScale = float.Parse(gameSettings ["explosionScale"]);
 
 	}
 }

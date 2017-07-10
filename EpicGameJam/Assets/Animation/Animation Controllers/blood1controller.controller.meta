@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:EpicGameJam/Assets/Animation/Animation Controllers/blood1controller.controller.meta
 guid: c4b30d768356c0448bedc28d6800d833
 timeCreated: 1499017227
+=======
+guid: 02b1c2df8d56c374cb41bccd23a359ab
+timeCreated: 1499024548
+>>>>>>> master:EpicGameJam/Assets/Prefabs/ExitPoint.prefab.meta
 licenseType: Free
 NativeFormatImporter:
   userData: 

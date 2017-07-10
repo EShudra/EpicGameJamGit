@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayButton : MonoBehaviour {
 
-	public WorldController wcont;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +16,6 @@ public class PlayButton : MonoBehaviour {
 	}
 
 	public void onClick(){
-		wcont.StartGame ();
+		SceneManager.LoadScene ("gameplay");
 	}
 }

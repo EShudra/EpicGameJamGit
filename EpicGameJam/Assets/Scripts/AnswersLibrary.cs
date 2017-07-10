@@ -9,6 +9,7 @@ public class AnswersLibrary : MonoBehaviour {
 
 	public List<Answer> usedAnswers;
 
+
 	// Use this for initialization
 	void Start () {
 	
@@ -16,6 +17,7 @@ public class AnswersLibrary : MonoBehaviour {
 
 	//get 3 answers
 	public Answer[] GetAnswers(){
+		Debug.Log ("!!!!!!!!!!!!!!!!!");
 		Answer[] ans = new Answer[3];
 		bool valid = false;
 		int c = 500;
@@ -44,6 +46,9 @@ public class AnswersLibrary : MonoBehaviour {
 		//if we get an one-time answer then add it to used list
 		if (currAns.oneTimeUse) {
 			usedAnswers.Add (currAns);
+		}
+		if (currAns.oneTimeUseTag) {
+			disableAllAnswerWithTag (currAns.parametrTag);
 		}
 		//add currAns to result
 		ans[0] = currAns;
@@ -79,6 +84,9 @@ public class AnswersLibrary : MonoBehaviour {
 		//if we get an one-time answer then add it to used list
 		if (currAns.oneTimeUse) {
 			usedAnswers.Add (currAns);
+		}
+		if (currAns.oneTimeUseTag) {
+			disableAllAnswerWithTag (currAns.parametrTag);
 		}
 		//add currAns to result
 		ans[1] = currAns;
@@ -122,6 +130,9 @@ public class AnswersLibrary : MonoBehaviour {
 		if (currAns.oneTimeUse) {
 			usedAnswers.Add (currAns);
 		}
+		if (currAns.oneTimeUseTag) {
+			disableAllAnswerWithTag (currAns.parametrTag);
+		}
 		//add currAns to result
 		ans[2] = currAns;
 
@@ -136,6 +147,8 @@ public class AnswersLibrary : MonoBehaviour {
 		return allAnswers[Random.Range (0, allAnswers.Length)];
 	}
 
+
+
 	bool isAnswerAlreadyUsed(Answer currAns){
 		bool used = false;
 		foreach (var item in usedAnswers) {
@@ -144,5 +157,13 @@ public class AnswersLibrary : MonoBehaviour {
 			}
 		}
 		return used;
+	}
+
+	void disableAllAnswerWithTag(string filter){
+		foreach (var item in allAnswers) {
+			if (item.parametrTag == filter){
+				usedAnswers.Add(item);
+			}
+		}
 	}
 }

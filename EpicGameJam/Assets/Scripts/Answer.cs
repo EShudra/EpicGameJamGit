@@ -22,6 +22,7 @@ public class Answer : MonoBehaviour {
 
 	//defines if answer can be used only one time
 	public bool oneTimeUse;
+	public bool oneTimeUseTag;
 
 	//defines if answer is forbidden to use
 	bool used;
@@ -29,10 +30,14 @@ public class Answer : MonoBehaviour {
 	//DRAG & DROP obj here
 	public WorldController wcont;
 
+	//DRAG & DROP obj here
+	public QuestionController qcont;
+
 	// Use this for initialization
 	void Start () {
 		this.GetComponentInChildren<Text> ().text = answerText;
 		wcont = GameObject.FindObjectOfType<WorldController> ();
+		qcont = GameObject.FindObjectOfType<QuestionController> ();
 	}
 	
 	public void OnClick(){
@@ -43,6 +48,7 @@ public class Answer : MonoBehaviour {
 			wcont.UpdateGameSetting (settingsArr[i], settingsArr[i+1]);
 		}
 
+		//qcont.NextQuestion ();
 		Destroy (this.transform.parent.gameObject);
 	}
 }
