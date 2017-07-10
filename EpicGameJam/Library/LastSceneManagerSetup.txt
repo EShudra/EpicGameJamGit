@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
+- path: Assets/startScene.unity
+=======
 - path: Assets/MikeliosusScene.unity
+>>>>>>> master
   isLoaded: 1
   isActive: 1
